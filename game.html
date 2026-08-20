@@ -3,871 +3,526 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎮 Hành Trình Liêm Chính — Giải Ô Chữ</title>
+  <title>🧩 Hành Trình Liêm Chính — Giải Ô Chữ Tương Tác</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    /* ===================== RESET ===================== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --font: 'Plus Jakarta Sans', system-ui, sans-serif;
-      --bg-dark: #0a0f1a;
-      --bg-card: rgba(255,255,255,0.06);
-      --bg-card-hover: rgba(255,255,255,0.10);
-      --glass: rgba(255,255,255,0.08);
-      --glass-border: rgba(255,255,255,0.12);
-      --teal: #14b8a6;
-      --teal-glow: rgba(20,184,166,0.35);
-      --emerald: #10b981;
-      --amber: #f59e0b;
-      --amber-glow: rgba(245,158,11,0.4);
-      --rose: #f43f5e;
-      --rose-glow: rgba(244,63,94,0.35);
-      --green: #22c55e;
-      --green-glow: rgba(34,197,94,0.35);
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --gold: #fbbf24;
-      --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-full: 9999px;
+      /* Warm light palette */
+      --bg: #f4f8f7;
+      --bg-white: #ffffff;
+      --bg-cream: #f0f7f6;
+      --bg-warm: #e8f4f2;
+
+      --teal-50: #e6f7f5; --teal-100: #b3ebe4; --teal-200: #80dfd3;
+      --teal-300: #4dd3c2; --teal-400: #26c9b4; --teal-500: #0f9d89;
+      --teal-600: #0d8a78; --teal-700: #0a6b5e; --teal-800: #074d44;
+
+      --emerald-50: #ecfdf5; --emerald-500: #10b981; --emerald-600: #059669;
+      --amber-50: #fffbeb; --amber-400: #fbbf24; --amber-500: #f59e0b; --amber-600: #d97706;
+      --rose-50: #fff1f2; --rose-400: #fb7185; --rose-500: #f43f5e;
+      --green-500: #22c55e; --green-600: #16a34a;
+
+      --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1; --slate-400: #94a3b8; --slate-500: #64748b;
+      --slate-600: #475569; --slate-700: #334155; --slate-800: #1e293b;
+      --slate-900: #0f172a;
+
+      --text-heading: var(--slate-800);
+      --text-body: var(--slate-600);
+      --text-muted: var(--slate-400);
+      --border: var(--slate-200);
+      --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+      --shadow-md: 0 4px 16px rgba(15,23,42,0.07);
+      --shadow-lg: 0 8px 30px rgba(15,23,42,0.09);
+      --shadow-xl: 0 12px 40px rgba(15,23,42,0.12);
+      --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 20px; --r-2xl: 28px; --r-full: 9999px;
     }
 
     html, body {
-      width: 100%; height: 100%;
-      overflow: hidden;
-      font-family: var(--font);
-      background: var(--bg-dark);
-      color: var(--text-primary);
+      width: 100%; height: 100%; overflow: hidden;
+      font-family: var(--font); background: var(--bg); color: var(--text-heading);
     }
 
-    /* ===================== ANIMATED BG ===================== */
-    .bg-anim {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      overflow: hidden;
-    }
-    .bg-anim .orb {
-      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3;
-    }
-    .bg-anim .orb:nth-child(1) {
-      width: 500px; height: 500px; background: var(--teal); top: -150px; left: -100px;
-      animation: orb1 18s ease-in-out infinite alternate;
-    }
-    .bg-anim .orb:nth-child(2) {
-      width: 400px; height: 400px; background: var(--amber); bottom: -100px; right: -80px;
-      animation: orb2 22s ease-in-out infinite alternate;
-    }
-    .bg-anim .orb:nth-child(3) {
-      width: 350px; height: 350px; background: var(--rose); top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      animation: orb3 20s ease-in-out infinite alternate;
-    }
-    @keyframes orb1 { to { transform: translate(60px, 40px) scale(1.1); } }
-    @keyframes orb2 { to { transform: translate(-50px, -30px) scale(1.15); } }
-    @keyframes orb3 { to { transform: translate(-40%, -60%) scale(0.9); } }
-
-    .bg-grid {
+    /* ========== BACKGROUND ========== */
+    .bg-pattern {
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background-image:
-        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-      background-size: 50px 50px;
+        radial-gradient(circle at 15% 20%, rgba(15,157,137,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 85% 80%, rgba(16,185,129,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(245,158,11,0.03) 0%, transparent 40%);
+    }
+    .bg-dots {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.35;
+      background-image: radial-gradient(circle, var(--slate-300) 1px, transparent 1px);
+      background-size: 28px 28px;
     }
 
-    /* ===================== LAYOUT ===================== */
-    .game-container {
-      position: relative; z-index: 1;
-      width: 100%; height: 100vh;
-      display: flex; flex-direction: column;
-      padding: 20px 28px;
+    /* ========== LAYOUT ========== */
+    .game-wrap {
+      position: relative; z-index: 1; width: 100%; height: 100vh;
+      display: flex; flex-direction: column; padding: 16px 24px;
     }
 
-    /* --- Header --- */
-    .game-header {
+    /* ========== HEADER ========== */
+    .header {
       display: flex; align-items: center; justify-content: space-between;
-      flex-shrink: 0; margin-bottom: 16px;
+      margin-bottom: 14px; flex-shrink: 0;
     }
-    .game-title {
-      display: flex; align-items: center; gap: 12px;
-    }
-    .game-title h1 {
-      font-size: 1.5rem; font-weight: 800;
-      background: linear-gradient(135deg, var(--teal), var(--emerald), var(--gold));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .game-title .emoji { font-size: 1.6rem; }
-
-    .header-controls {
-      display: flex; align-items: center; gap: 10px;
-    }
-
-    .btn-icon {
-      width: 42px; height: 42px; border-radius: var(--r-full);
-      border: 1px solid var(--glass-border); background: var(--glass);
-      color: var(--text-secondary); cursor: pointer;
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .logo-icon {
+      width: 40px; height: 40px; border-radius: var(--r-lg);
+      background: linear-gradient(135deg, var(--teal-500), var(--emerald-500));
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; transition: all 0.2s;
+      font-size: 1.2rem; box-shadow: 0 3px 12px rgba(15,157,137,0.25);
     }
-    .btn-icon:hover { background: var(--bg-card-hover); color: var(--text-primary); transform: scale(1.08); }
-    .btn-icon.active { background: var(--teal); color: white; border-color: var(--teal); }
-
-    .score-badge {
-      display: flex; align-items: center; gap: 6px;
-      background: var(--glass); border: 1px solid var(--glass-border);
-      padding: 8px 16px; border-radius: var(--r-full);
-      font-weight: 700; font-size: 0.9rem; color: var(--gold);
+    .header-title h1 {
+      font-size: 1.25rem; font-weight: 800; color: var(--text-heading); line-height: 1.2;
     }
-
-    .back-link {
-      color: var(--text-secondary); text-decoration: none; font-size: 0.85rem;
-      display: flex; align-items: center; gap: 6px;
-      padding: 8px 14px; border-radius: var(--r-full);
-      border: 1px solid var(--glass-border); background: var(--glass);
-      transition: all 0.2s;
+    .header-title p {
+      font-size: 0.72rem; font-weight: 600; color: var(--teal-600);
+      text-transform: uppercase; letter-spacing: 0.08em;
     }
-    .back-link:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+    .header-right { display: flex; align-items: center; gap: 8px; }
 
-    /* --- Main Content --- */
-    .game-main {
+    .chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 14px; border-radius: var(--r-full);
+      font-size: 0.78rem; font-weight: 700;
+      background: var(--bg-white); border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm); color: var(--text-heading);
+    }
+    .chip-gold { color: var(--amber-600); border-color: rgba(245,158,11,0.25); background: var(--amber-50); }
+
+    .icon-btn {
+      width: 36px; height: 36px; border-radius: var(--r-full);
+      border: 1px solid var(--border); background: var(--bg-white);
+      color: var(--text-body); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; transition: all 0.2s; box-shadow: var(--shadow-sm);
+    }
+    .icon-btn:hover { background: var(--teal-50); border-color: var(--teal-300); color: var(--teal-700); transform: translateY(-1px); }
+    .icon-btn.muted { color: var(--text-muted); }
+
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 14px; border-radius: var(--r-full);
+      font-size: 0.78rem; font-weight: 600;
+      background: var(--bg-white); border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm); color: var(--text-body);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .back-btn:hover { background: var(--teal-50); border-color: var(--teal-300); color: var(--teal-700); }
+
+    /* ========== MAIN GRID ========== */
+    .main {
       flex: 1; display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 20px; min-height: 0;
+      grid-template-columns: 1fr 360px;
+      gap: 16px; min-height: 0;
     }
 
-    /* --- Board Panel --- */
-    .board-panel {
-      background: var(--bg-card); border: 1px solid var(--glass-border);
-      border-radius: var(--r-xl); padding: 20px;
-      display: flex; flex-direction: column;
-      overflow-y: auto;
+    /* ========== BOARD CARD ========== */
+    .board-card {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: var(--r-2xl); padding: 18px;
+      box-shadow: var(--shadow-md); overflow-y: auto;
     }
-    .board-panel::-webkit-scrollbar { width: 6px; }
-    .board-panel::-webkit-scrollbar-track { background: transparent; }
-    .board-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+    .board-card::-webkit-scrollbar { width: 5px; }
+    .board-card::-webkit-scrollbar-thumb { background: var(--slate-200); border-radius: 3px; }
 
-    /* --- CW Row --- */
-    .cw-row {
+    /* ========== CW ROW ========== */
+    .row {
       display: flex; align-items: center; gap: 8px;
-      padding: 6px 10px; border-radius: var(--r-md);
+      padding: 5px 8px; border-radius: var(--r-md);
       cursor: pointer; transition: all 0.2s;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
-    .cw-row:hover { background: rgba(255,255,255,0.04); }
-    .cw-row.active { background: rgba(20,184,166,0.1); box-shadow: inset 0 0 0 1px var(--teal); }
-    .cw-row.solved { opacity: 0.6; }
-    .cw-row.solved .cw-cell { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.3); color: var(--green); }
+    .row:hover { background: var(--teal-50); }
+    .row.active { background: var(--teal-50); box-shadow: inset 0 0 0 2px var(--teal-400); }
+    .row.done { background: rgba(16,185,129,0.06); }
+    .row.done .cell { background: var(--emerald-50); border-color: rgba(16,185,129,0.25); color: var(--emerald-600); }
 
-    .cw-num {
-      width: 28px; height: 28px; border-radius: var(--r-full);
-      background: var(--glass); border: 1px solid var(--glass-border);
+    .row-num {
+      width: 26px; height: 26px; border-radius: var(--r-full);
+      background: var(--slate-100); border: 1.5px solid var(--slate-200);
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.75rem; font-weight: 800; color: var(--text-secondary);
-      flex-shrink: 0;
+      font-size: 0.7rem; font-weight: 800; color: var(--text-body); flex-shrink: 0;
     }
-    .cw-row.active .cw-num { background: var(--teal); color: white; border-color: var(--teal); }
-    .cw-row.solved .cw-num { background: var(--green); color: white; border-color: var(--green); }
+    .row.active .row-num { background: var(--teal-500); color: white; border-color: var(--teal-500); }
+    .row.done .row-num { background: var(--emerald-500); color: white; border-color: var(--emerald-500); }
 
-    .cw-cells { display: flex; gap: 3px; }
+    .cells { display: flex; gap: 3px; }
 
-    .cw-cell {
-      width: 32px; height: 32px; border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
+    .cell {
+      width: 30px; height: 30px; border-radius: 6px;
+      border: 1.5px solid var(--slate-200);
+      background: var(--slate-50);
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.8rem; font-weight: 800; color: var(--text-primary);
-      transition: all 0.25s;
-      text-transform: uppercase;
+      font-size: 0.78rem; font-weight: 800; color: var(--text-heading);
+      transition: all 0.3s; text-transform: uppercase;
     }
-    .cw-cell.key {
-      background: rgba(245,158,11,0.15);
-      border-color: rgba(245,158,11,0.4);
-      color: var(--gold);
-      box-shadow: 0 0 8px rgba(245,158,11,0.15);
+    .cell.key {
+      background: var(--amber-50); border-color: var(--amber-400);
+      color: var(--amber-600); box-shadow: 0 0 0 2px rgba(245,158,11,0.1);
     }
-    .cw-cell.revealed {
-      background: rgba(20,184,166,0.12);
-      border-color: rgba(20,184,166,0.3);
-      color: var(--teal);
-      animation: cellReveal 0.4s ease;
+    .cell.revealed { animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .cell.key.revealed {
+      background: linear-gradient(135deg, var(--amber-50), #fef3c7);
+      border-color: var(--amber-500); color: var(--amber-600);
+      box-shadow: 0 2px 8px rgba(245,158,11,0.2);
     }
-    .cw-cell.key.revealed {
-      background: rgba(245,158,11,0.2);
-      border-color: var(--gold);
-      color: var(--gold);
-      box-shadow: 0 0 12px rgba(245,158,11,0.25);
-    }
-    .cw-cell.empty { visibility: hidden; pointer-events: none; }
+    .cell.empty { visibility: hidden; pointer-events: none; }
 
-    @keyframes cellReveal {
-      0% { transform: scale(0.6) rotateX(90deg); opacity: 0; }
-      60% { transform: scale(1.15) rotateX(0); }
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      60% { transform: scale(1.2); }
       100% { transform: scale(1); opacity: 1; }
     }
 
-    /* --- Right Panel --- */
-    .right-panel {
-      display: flex; flex-direction: column; gap: 14px;
-    }
+    /* ========== RIGHT PANEL ========== */
+    .right-panel { display: flex; flex-direction: column; gap: 12px; }
 
     /* --- Clue Card --- */
     .clue-card {
-      background: linear-gradient(135deg, rgba(20,184,166,0.08), rgba(16,185,129,0.05));
-      border: 1px solid rgba(20,184,166,0.2);
-      border-radius: var(--r-xl); padding: 20px;
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: var(--r-2xl); padding: 18px;
+      box-shadow: var(--shadow-md);
+      border-top: 4px solid var(--teal-400);
     }
-    .clue-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--teal); color: white;
-      padding: 4px 12px; border-radius: var(--r-full);
-      font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.06em; margin-bottom: 12px;
+    .clue-label {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: linear-gradient(135deg, var(--teal-500), var(--emerald-500));
+      color: white; padding: 3px 12px; border-radius: var(--r-full);
+      font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 10px;
     }
     .clue-text {
-      font-size: 0.95rem; font-weight: 600; line-height: 1.6;
-      color: var(--text-primary); margin-bottom: 14px;
+      font-size: 0.92rem; font-weight: 600; line-height: 1.65;
+      color: var(--text-heading); margin-bottom: 12px;
     }
 
-    /* --- Hint Box --- */
-    .hint-box {
-      display: none;
-      background: rgba(245,158,11,0.08);
-      border: 1px solid rgba(245,158,11,0.25);
-      border-radius: var(--r-md);
-      padding: 10px 14px; margin-bottom: 12px;
-      font-size: 0.85rem; font-weight: 600;
-      color: var(--gold); line-height: 1.5;
+    .hint-panel {
+      display: none; padding: 10px 14px; border-radius: var(--r-md);
+      background: var(--amber-50); border: 1px solid rgba(245,158,11,0.3);
+      font-size: 0.82rem; font-weight: 600; color: var(--amber-600);
+      line-height: 1.55; margin-bottom: 12px;
     }
-    .hint-box.show { display: block; animation: fadeIn 0.3s ease; }
+    .hint-panel.open { display: block; animation: slideDown 0.3s ease; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* --- Input Group --- */
-    .input-group {
-      display: flex; gap: 8px; flex-wrap: wrap;
+    .input-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .answer-input {
+      flex: 1; min-width: 100px; padding: 9px 14px;
+      border-radius: var(--r-md); border: 1.5px solid var(--slate-200);
+      background: var(--bg-white); color: var(--text-heading);
+      font-family: var(--font); font-size: 0.92rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em; outline: none;
+      transition: all 0.2s;
     }
-    .game-input {
-      flex: 1; min-width: 120px; padding: 10px 14px;
-      border-radius: var(--r-md); border: 1px solid var(--glass-border);
-      background: rgba(0,0,0,0.3); color: var(--text-primary);
-      font-family: var(--font); font-size: 0.95rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.1em;
-      outline: none; transition: all 0.2s;
-    }
-    .game-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-glow); }
-    .game-input::placeholder { color: var(--text-muted); text-transform: none; letter-spacing: 0; font-weight: 500; }
+    .answer-input:focus { border-color: var(--teal-400); box-shadow: 0 0 0 3px rgba(15,157,137,0.12); }
+    .answer-input::placeholder { text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--text-muted); }
 
     .btn {
-      padding: 10px 18px; border-radius: var(--r-md);
-      border: none; font-family: var(--font); font-weight: 700;
-      font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
-      display: flex; align-items: center; gap: 6px;
+      padding: 9px 16px; border-radius: var(--r-md); border: none;
+      font-family: var(--font); font-weight: 700; font-size: 0.82rem;
+      cursor: pointer; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 5px;
     }
     .btn:hover { transform: translateY(-1px); }
     .btn:active { transform: scale(0.97); }
-    .btn-check { background: var(--teal); color: white; }
-    .btn-check:hover { box-shadow: 0 4px 20px var(--teal-glow); }
-    .btn-hint { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
-    .btn-hint:hover { background: rgba(245,158,11,0.25); }
-    .btn-reveal { background: var(--glass); color: var(--text-secondary); border: 1px solid var(--glass-border); }
-    .btn-reveal:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+    .btn-primary { background: linear-gradient(135deg, var(--teal-500), var(--teal-600)); color: white; box-shadow: 0 2px 8px rgba(15,157,137,0.25); }
+    .btn-primary:hover { box-shadow: 0 4px 16px rgba(15,157,137,0.3); }
+    .btn-warn { background: var(--amber-50); color: var(--amber-600); border: 1px solid rgba(245,158,11,0.3); }
+    .btn-warn:hover { background: rgba(245,158,11,0.15); }
+    .btn-ghost { background: var(--slate-100); color: var(--text-body); }
+    .btn-ghost:hover { background: var(--slate-200); }
+    .btn-gold { background: linear-gradient(135deg, var(--amber-400), var(--amber-500)); color: white; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+    .btn-gold:hover { box-shadow: 0 4px 16px rgba(245,158,11,0.35); }
+    .btn-outline { background: var(--bg-white); color: var(--text-body); border: 1px solid var(--border); }
+    .btn-outline:hover { background: var(--teal-50); color: var(--teal-700); }
 
-    .feedback {
-      display: none; padding: 8px 14px; border-radius: var(--r-md);
-      font-size: 0.85rem; font-weight: 700; margin-top: 10px;
-      animation: fadeIn 0.3s ease;
+    .msg {
+      display: none; padding: 8px 12px; border-radius: var(--r-md);
+      font-size: 0.82rem; font-weight: 700; margin-top: 8px;
     }
-    .feedback.correct { display: block; background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
-    .feedback.wrong { display: block; background: rgba(244,63,94,0.1); color: var(--rose); border: 1px solid rgba(244,63,94,0.3); }
+    .msg.ok { display: block; background: rgba(16,185,129,0.08); color: var(--emerald-600); border: 1px solid rgba(16,185,129,0.2); animation: slideDown 0.25s; }
+    .msg.err { display: block; background: var(--rose-50); color: var(--rose-500); border: 1px solid rgba(244,63,94,0.2); animation: slideDown 0.25s; }
 
     /* --- Keyword Card --- */
-    .keyword-card {
-      background: linear-gradient(135deg, rgba(245,158,11,0.06), rgba(251,191,36,0.04));
-      border: 2px dashed rgba(245,158,11,0.3);
-      border-radius: var(--r-xl); padding: 20px;
-      text-align: center;
+    .kw-card {
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border: 2px dashed var(--amber-400);
+      border-radius: var(--r-2xl); padding: 18px;
+      text-align: center; box-shadow: var(--shadow-sm);
     }
-    .keyword-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(245,158,11,0.15); color: var(--gold);
-      padding: 4px 12px; border-radius: var(--r-full);
-      font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.06em; margin-bottom: 8px;
-      border: 1px solid rgba(245,158,11,0.3);
+    .kw-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(245,158,11,0.12); color: var(--amber-600);
+      padding: 3px 12px; border-radius: var(--r-full);
+      font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 6px;
+      border: 1px solid rgba(245,158,11,0.25);
     }
-    .keyword-desc { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 10px; }
-    .keyword-answer {
-      font-size: 2.2rem; font-weight: 900; letter-spacing: 0.2em;
-      background: linear-gradient(135deg, var(--gold), #f97316);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; display: none;
+    .kw-desc { font-size: 0.78rem; color: var(--text-body); margin-bottom: 8px; }
+    .kw-answer {
+      font-size: 2rem; font-weight: 900; letter-spacing: 0.18em;
+      color: var(--amber-600); display: none;
     }
-    .keyword-answer.visible {
+    .kw-answer.show {
       display: block;
-      animation: keywordReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: bounceIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    @keyframes keywordReveal {
-      0% { transform: scale(0.3) rotateY(180deg); opacity: 0; }
-      100% { transform: scale(1) rotateY(0); opacity: 1; }
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); opacity: 1; }
     }
-    .keyword-sub { display: none; font-size: 0.85rem; color: var(--emerald); font-weight: 600; margin-top: 6px; }
-    .keyword-sub.visible { display: block; }
+    .kw-sub { display: none; font-size: 0.82rem; color: var(--emerald-600); font-weight: 700; margin-top: 4px; }
+    .kw-sub.show { display: block; }
+    .kw-btns { display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
 
-    .btn-group-kw {
-      display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap;
+    /* --- Progress --- */
+    .progress-wrap { flex-shrink: 0; }
+    .progress-head {
+      display: flex; justify-content: space-between;
+      font-size: 0.7rem; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px;
     }
-    .btn-gold { background: var(--amber); color: #1a1a2e; }
-    .btn-gold:hover { box-shadow: 0 4px 20px var(--amber-glow); }
-    .btn-reset { background: var(--glass); color: var(--text-secondary); border: 1px solid var(--glass-border); }
-    .btn-reset:hover { color: var(--text-primary); }
-
-    /* --- Progress Bar --- */
-    .progress-section { flex-shrink: 0; }
-    .progress-label {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.75rem; font-weight: 700; color: var(--text-muted);
-      margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.08em;
+    .progress-track {
+      height: 7px; background: var(--slate-100); border-radius: var(--r-full); overflow: hidden;
     }
     .progress-bar {
-      height: 6px; background: rgba(255,255,255,0.06);
-      border-radius: var(--r-full); overflow: hidden;
-    }
-    .progress-fill {
       height: 100%; border-radius: var(--r-full);
-      background: linear-gradient(90deg, var(--teal), var(--emerald), var(--gold));
-      transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 0 10px var(--teal-glow);
+      background: linear-gradient(90deg, var(--teal-400), var(--emerald-500));
+      transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* ===================== FIREWORKS ===================== */
-    #fireworksCanvas {
-      position: fixed; inset: 0; z-index: 999; pointer-events: none;
+    /* ========== FIREWORKS CANVAS ========== */
+    #fwCanvas { position: fixed; inset: 0; z-index: 900; pointer-events: none; }
+
+    /* ========== CONFETTI ========== */
+    .confetti {
+      position: fixed; z-index: 899; pointer-events: none;
+      border-radius: 2px;
     }
 
-    /* ===================== CONFETTI ===================== */
-    .confetti-piece {
-      position: fixed; z-index: 998; pointer-events: none;
-      width: 10px; height: 10px; border-radius: 2px;
-    }
+    /* ========== SHAKE ========== */
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+    .shake { animation: shake 0.35s ease; }
 
-    /* ===================== UTILITIES ===================== */
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
-
-    .shake { animation: shake 0.4s ease; }
-
-    /* ===================== RESPONSIVE ===================== */
-    @media (max-width: 900px) {
-      .game-main { grid-template-columns: 1fr; }
-      .board-panel { max-height: 45vh; }
-      .game-container { padding: 12px 16px; }
-      .cw-cell { width: 26px; height: 26px; font-size: 0.7rem; }
-      .game-title h1 { font-size: 1.2rem; }
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 920px) {
+      .main { grid-template-columns: 1fr; }
+      .board-card { max-height: 42vh; }
+      .game-wrap { padding: 10px 14px; }
+      .cell { width: 24px; height: 24px; font-size: 0.68rem; }
+      .header-title h1 { font-size: 1.05rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Animated Background -->
-  <div class="bg-anim">
-    <div class="orb"></div>
-    <div class="orb"></div>
-    <div class="orb"></div>
-  </div>
-  <div class="bg-grid"></div>
+  <div class="bg-pattern"></div>
+  <div class="bg-dots"></div>
+  <canvas id="fwCanvas"></canvas>
 
-  <!-- Fireworks Canvas -->
-  <canvas id="fireworksCanvas"></canvas>
+  <div class="game-wrap">
 
-  <!-- Game Container -->
-  <div class="game-container">
-
-    <!-- Header -->
-    <header class="game-header">
-      <div class="game-title">
-        <span class="emoji">🧩</span>
-        <h1>Hành Trình Liêm Chính</h1>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <div class="logo-icon">🧩</div>
+        <div class="header-title">
+          <h1>Hành Trình Liêm Chính</h1>
+          <p>Giải ô chữ tương tác — Nhóm 7</p>
+        </div>
       </div>
-      <div class="header-controls">
-        <div class="score-badge" id="scoreBadge">⭐ <span id="scoreText">0 / 9</span></div>
-        <button class="btn-icon" id="btnSound" title="Bật/Tắt âm thanh">🔊</button>
-        <button class="btn-icon" id="btnFullscreen" title="Toàn màn hình">⛶</button>
-        <a href="index.html" class="back-link">← Quay lại</a>
+      <div class="header-right">
+        <div class="chip chip-gold">⭐ <span id="scoreVal">0 / 9</span></div>
+        <button class="icon-btn" id="btnAudio" title="Bật/Tắt âm thanh">🔊</button>
+        <button class="icon-btn" id="btnFS" title="Toàn màn hình">⛶</button>
+        <a href="index.html" class="back-btn">← Quay lại</a>
       </div>
     </header>
 
-    <!-- Main Content -->
-    <div class="game-main">
+    <!-- MAIN -->
+    <div class="main">
 
-      <!-- Board -->
-      <div class="board-panel" id="cwBoard"></div>
+      <!-- BOARD -->
+      <div class="board-card" id="board"></div>
 
-      <!-- Right Panel -->
+      <!-- RIGHT -->
       <div class="right-panel">
 
-        <!-- Clue -->
         <div class="clue-card">
-          <div class="clue-badge" id="clueBadge">Hàng ngang 1</div>
-          <p class="clue-text" id="clueText">Bấm chọn một hàng ngang bên trái để bắt đầu.</p>
-          <div class="hint-box" id="hintBox"></div>
-          <div class="input-group">
-            <input type="text" class="game-input" id="answerInput" placeholder="Nhập đáp án..." autocomplete="off">
-            <button class="btn btn-check" id="btnCheck">✓ Kiểm tra</button>
+          <div class="clue-label" id="cLabel">📌 Hàng ngang 1</div>
+          <p class="clue-text" id="cText">Bấm chọn một hàng ngang bên trái để bắt đầu chơi.</p>
+          <div class="hint-panel" id="hintPanel"></div>
+          <div class="input-row">
+            <input type="text" class="answer-input" id="inp" placeholder="Nhập đáp án..." autocomplete="off">
+            <button class="btn btn-primary" id="bCheck">✓ Kiểm tra</button>
           </div>
-          <div class="input-group" style="margin-top:8px;">
-            <button class="btn btn-hint" id="btnHint">💡 Gợi ý</button>
-            <button class="btn btn-reveal" id="btnReveal">👁 Mở đáp án</button>
+          <div class="input-row" style="margin-top:6px;">
+            <button class="btn btn-warn" id="bHint">💡 Gợi ý</button>
+            <button class="btn btn-ghost" id="bReveal">👁 Mở đáp án</button>
           </div>
-          <div class="feedback" id="feedback"></div>
+          <div class="msg" id="msg"></div>
         </div>
 
-        <!-- Keyword -->
-        <div class="keyword-card">
-          <div class="keyword-badge">🏆 Mật mã hàng dọc</div>
-          <p class="keyword-desc">Đặc trưng cốt lõi của thể chế đang xây dựng (9 chữ cái)</p>
-          <div class="keyword-answer" id="keywordAnswer">PHÁP QUYỀN</div>
-          <p class="keyword-sub" id="keywordSub">🎉 Chúc mừng! Bạn đã hoàn thành Hành Trình Liêm Chính!</p>
-          <div class="btn-group-kw">
-            <button class="btn btn-gold" id="btnKeyword">🔑 Giải mật mã</button>
-            <button class="btn btn-reset" id="btnReset">🔄 Chơi lại</button>
-          </div>
-        </div>
-
-        <!-- Progress -->
-        <div class="progress-section">
-          <div class="progress-label">
-            <span>Tiến độ</span>
-            <span id="progressPercent">0%</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+        <div class="kw-card">
+          <div class="kw-badge">🏆 Mật mã hàng dọc</div>
+          <p class="kw-desc">Đặc trưng cốt lõi của thể chế đang xây dựng (9 chữ cái)</p>
+          <div class="kw-answer" id="kwAns">PHÁP QUYỀN</div>
+          <p class="kw-sub" id="kwSub">🎉 Chúc mừng! Bạn đã hoàn thành Hành Trình Liêm Chính!</p>
+          <div class="kw-btns">
+            <button class="btn btn-gold" id="bKey">🔑 Giải mật mã</button>
+            <button class="btn btn-outline" id="bReset">🔄 Chơi lại</button>
           </div>
         </div>
 
+        <div class="progress-wrap">
+          <div class="progress-head"><span>Tiến độ</span><span id="pctText">0%</span></div>
+          <div class="progress-track"><div class="progress-bar" id="pBar" style="width:0%"></div></div>
+        </div>
       </div>
     </div>
   </div>
 
 <script>
-// ============================================
-// SOUND ENGINE (Web Audio API)
-// ============================================
-const AudioCtx = window.AudioContext || window.webkitAudioContext;
-let audioCtx = null;
-let soundEnabled = true;
-let bgmOsc = null;
-let bgmGain = null;
-let bgmPlaying = false;
+/* ============ AUDIO ENGINE ============ */
+const AC = window.AudioContext || window.webkitAudioContext;
+let ac = null, audioOn = true, bgmOn = false;
 
-function ensureAudioCtx() {
-  if (!audioCtx) audioCtx = new AudioCtx();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
+function initAC() { if (!ac) ac = new AC(); if (ac.state === 'suspended') ac.resume(); }
+
+function tone(f, type, dur, vol = 0.12) {
+  if (!audioOn) return; initAC();
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = type; o.frequency.value = f;
+  g.gain.setValueAtTime(vol, ac.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + dur);
+  o.connect(g); g.connect(ac.destination);
+  o.start(); o.stop(ac.currentTime + dur);
+}
+function sfxOk() { tone(523,'sine',0.12,0.18); setTimeout(()=>tone(659,'sine',0.12,0.18),90); setTimeout(()=>tone(784,'sine',0.28,0.2),180); }
+function sfxNo() { tone(200,'square',0.12,0.1); setTimeout(()=>tone(160,'square',0.2,0.1),100); }
+function sfxPop() { tone(880,'sine',0.06,0.08); setTimeout(()=>tone(1100,'sine',0.1,0.08),70); }
+function sfxTap() { tone(600,'sine',0.04,0.06); }
+function sfxReveal() { tone(440,'triangle',0.08,0.08); setTimeout(()=>tone(550,'triangle',0.08,0.08),70); setTimeout(()=>tone(660,'triangle',0.12,0.08),140); }
+function sfxFanfare() {
+  [523,587,659,698,784,880,988,1047].forEach((n,i) => setTimeout(()=>tone(n,'sine',0.22,0.15),i*90));
+  setTimeout(()=>{tone(1047,'sine',0.45,0.22);tone(784,'sine',0.45,0.18);tone(523,'sine',0.45,0.12);},780);
 }
 
-function playTone(freq, type, duration, vol = 0.15) {
-  if (!soundEnabled) return;
-  ensureAudioCtx();
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = type;
-  osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-  gain.gain.setValueAtTime(vol, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-  osc.connect(gain); gain.connect(audioCtx.destination);
-  osc.start(); osc.stop(audioCtx.currentTime + duration);
+function bgmLoop() {
+  if (!bgmOn || !audioOn) return;
+  const m=[[392,0,.45],[440,.45,.45],[494,.9,.45],[523,1.35,.7],[494,2.05,.45],[440,2.5,.45],[392,2.95,.7],[330,3.65,.45],[349,4.1,.45],[392,4.55,.7],[440,5.25,.45],[392,5.7,.45],[349,6.15,.45],[330,6.6,.85]];
+  m.forEach(([f,s,d])=>{if(!audioOn||!bgmOn)return;initAC();const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0.025,ac.currentTime+s);g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+s+d);o.connect(g);g.connect(ac.destination);o.start(ac.currentTime+s);o.stop(ac.currentTime+s+d);});
+  setTimeout(bgmLoop,7600);
 }
 
-function sfxCorrect() {
-  playTone(523, 'sine', 0.15, 0.2);
-  setTimeout(() => playTone(659, 'sine', 0.15, 0.2), 100);
-  setTimeout(() => playTone(784, 'sine', 0.3, 0.2), 200);
-}
-
-function sfxWrong() {
-  playTone(200, 'square', 0.15, 0.12);
-  setTimeout(() => playTone(160, 'square', 0.25, 0.12), 120);
-}
-
-function sfxHint() {
-  playTone(880, 'sine', 0.08, 0.1);
-  setTimeout(() => playTone(1100, 'sine', 0.12, 0.1), 80);
-}
-
-function sfxClick() {
-  playTone(600, 'sine', 0.06, 0.08);
-}
-
-function sfxReveal() {
-  playTone(440, 'triangle', 0.1, 0.1);
-  setTimeout(() => playTone(550, 'triangle', 0.1, 0.1), 80);
-  setTimeout(() => playTone(660, 'triangle', 0.15, 0.1), 160);
-}
-
-function sfxVictory() {
-  const notes = [523, 587, 659, 698, 784, 880, 988, 1047];
-  notes.forEach((n, i) => {
-    setTimeout(() => playTone(n, 'sine', 0.25, 0.18), i * 100);
-  });
-  setTimeout(() => {
-    playTone(1047, 'sine', 0.5, 0.25);
-    playTone(784, 'sine', 0.5, 0.2);
-    playTone(523, 'sine', 0.5, 0.15);
-  }, 850);
-}
-
-// BGM
-function startBGM() {
-  if (bgmPlaying || !soundEnabled) return;
-  ensureAudioCtx();
-  bgmGain = audioCtx.createGain();
-  bgmGain.gain.setValueAtTime(0.03, audioCtx.currentTime);
-  bgmGain.connect(audioCtx.destination);
-
-  function playBGMNote(freq, start, dur) {
-    const o = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
-    o.type = 'sine';
-    o.frequency.value = freq;
-    g.gain.setValueAtTime(0.03, audioCtx.currentTime + start);
-    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + start + dur);
-    o.connect(g); g.connect(audioCtx.destination);
-    o.start(audioCtx.currentTime + start);
-    o.stop(audioCtx.currentTime + start + dur);
-  }
-
-  const melody = [
-    [392, 0, 0.5], [440, 0.5, 0.5], [494, 1, 0.5], [523, 1.5, 0.8],
-    [494, 2.3, 0.5], [440, 2.8, 0.5], [392, 3.3, 0.8],
-    [330, 4.1, 0.5], [349, 4.6, 0.5], [392, 5.1, 0.8],
-    [440, 5.9, 0.5], [392, 6.4, 0.5], [349, 6.9, 0.5], [330, 7.4, 1],
-  ];
-
-  function loopBGM() {
-    if (!bgmPlaying || !soundEnabled) return;
-    melody.forEach(([f, s, d]) => playBGMNote(f, s, d));
-    setTimeout(loopBGM, 8500);
-  }
-
-  bgmPlaying = true;
-  loopBGM();
-}
-
-function stopBGM() {
-  bgmPlaying = false;
-}
-
-// ============================================
-// CONFETTI & FIREWORKS
-// ============================================
-function launchConfetti() {
-  const colors = ['#14b8a6','#fbbf24','#f43f5e','#10b981','#a855f7','#3b82f6','#ec4899'];
-  for (let i = 0; i < 80; i++) {
-    const el = document.createElement('div');
-    el.className = 'confetti-piece';
-    el.style.left = Math.random() * 100 + '%';
-    el.style.top = '-10px';
-    el.style.background = colors[Math.floor(Math.random() * colors.length)];
-    el.style.width = (Math.random() * 8 + 5) + 'px';
-    el.style.height = (Math.random() * 8 + 5) + 'px';
-    el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-    el.style.opacity = Math.random() * 0.6 + 0.4;
-    document.body.appendChild(el);
-
-    const dur = Math.random() * 2000 + 2000;
-    const xDrift = (Math.random() - 0.5) * 300;
-    el.animate([
-      { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
-      { transform: `translate(${xDrift}px, ${window.innerHeight + 50}px) rotate(${Math.random()*720}deg)`, opacity: 0 }
-    ], { duration: dur, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' })
-    .onfinish = () => el.remove();
+/* ============ PARTICLES ============ */
+function confetti() {
+  const cols=['#14b8a6','#fbbf24','#f43f5e','#10b981','#a855f7','#3b82f6','#ec4899'];
+  for(let i=0;i<70;i++){
+    const e=document.createElement('div'); e.className='confetti';
+    e.style.left=Math.random()*100+'%'; e.style.top='-12px';
+    e.style.background=cols[~~(Math.random()*cols.length)];
+    e.style.width=(Math.random()*7+4)+'px'; e.style.height=(Math.random()*7+4)+'px';
+    e.style.borderRadius=Math.random()>.5?'50%':'2px';
+    document.body.appendChild(e);
+    const xd=(Math.random()-.5)*280;
+    e.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${xd}px,${innerHeight+40}px) rotate(${Math.random()*720}deg)`,opacity:0}],
+      {duration:Math.random()*2e3+2e3,easing:'cubic-bezier(.25,.46,.45,.94)'}).onfinish=()=>e.remove();
   }
 }
+const cv=document.getElementById('fwCanvas'),cx=cv.getContext('2d');let pts=[],fwRun=false;
+function rszCV(){cv.width=innerWidth;cv.height=innerHeight;} rszCV(); addEventListener('resize',rszCV);
+function boom(x,y){const c=['#14b8a6','#fbbf24','#f43f5e','#10b981','#a855f7','#ec4899','#fff'];for(let i=0;i<45;i++){const a=Math.PI*2/45*i,s=Math.random()*3.5+1.5;pts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:1,d:Math.random()*.014+.008,c:c[~~(Math.random()*c.length)],r:Math.random()*2.5+.8});}}
+function drawFW(){cx.clearRect(0,0,cv.width,cv.height);pts=pts.filter(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.035;p.l-=p.d;if(p.l<=0)return false;cx.globalAlpha=p.l;cx.fillStyle=p.c;cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fill();return true;});cx.globalAlpha=1;if(pts.length)requestAnimationFrame(drawFW);else fwRun=false;}
+function fireworks(){fwRun=true;for(let i=0;i<5;i++)setTimeout(()=>boom(Math.random()*cv.width*.6+cv.width*.2,Math.random()*cv.height*.35+cv.height*.1),i*350);drawFW();}
 
-// Firework particles on canvas
-const fwCanvas = document.getElementById('fireworksCanvas');
-const fwCtx = fwCanvas.getContext('2d');
-let fwParticles = [];
-let fwAnimating = false;
-
-function resizeFWCanvas() {
-  fwCanvas.width = window.innerWidth;
-  fwCanvas.height = window.innerHeight;
-}
-resizeFWCanvas();
-window.addEventListener('resize', resizeFWCanvas);
-
-function createFirework(x, y) {
-  const colors = ['#14b8a6','#fbbf24','#f43f5e','#10b981','#a855f7','#ec4899','#ffffff'];
-  for (let i = 0; i < 50; i++) {
-    const angle = (Math.PI * 2 / 50) * i;
-    const speed = Math.random() * 4 + 2;
-    fwParticles.push({
-      x, y,
-      vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed,
-      life: 1,
-      decay: Math.random() * 0.015 + 0.01,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      size: Math.random() * 3 + 1
-    });
-  }
-}
-
-function animateFireworks() {
-  if (!fwAnimating && fwParticles.length === 0) return;
-  fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
-  fwParticles = fwParticles.filter(p => {
-    p.x += p.vx;
-    p.y += p.vy;
-    p.vy += 0.04;
-    p.life -= p.decay;
-    if (p.life <= 0) return false;
-    fwCtx.globalAlpha = p.life;
-    fwCtx.fillStyle = p.color;
-    fwCtx.beginPath();
-    fwCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    fwCtx.fill();
-    return true;
-  });
-  fwCtx.globalAlpha = 1;
-  if (fwParticles.length > 0) requestAnimationFrame(animateFireworks);
-  else fwAnimating = false;
-}
-
-function launchFireworks() {
-  fwAnimating = true;
-  for (let i = 0; i < 6; i++) {
-    setTimeout(() => {
-      createFirework(
-        Math.random() * fwCanvas.width * 0.6 + fwCanvas.width * 0.2,
-        Math.random() * fwCanvas.height * 0.4 + fwCanvas.height * 0.1
-      );
-    }, i * 400);
-  }
-  animateFireworks();
-}
-
-// ============================================
-// CROSSWORD DATA
-// ============================================
-const CROSSWORD_DATA = [
-  { id: 1, answer: "PHANANH", keyPos: 0, offset: 5, clue: "Quyền của công dân khi gửi thông tin về các dấu hiệu vi phạm, tiêu cực đến cơ quan chức năng hoặc cổng dịch vụ công trực tuyến gọi là gì? (7 chữ cái)", hint: "Khi gặp cán bộ gây khó dễ, người dân có quyền gọi lên đường dây nóng để [...] sai phạm? (Chữ cái đầu: P)" },
-  { id: 2, answer: "HOILO", keyPos: 0, offset: 5, clue: "Hành vi đưa tiền hoặc lợi ích vật chất ngoài quy định để được giải quyết công việc nhanh chóng gọi là gì? (5 chữ cái)", hint: "Hành động lén lút đưa tiền phong bì cho cán bộ để được ưu tiên làm nhanh gọi là hành vi đưa [...]? (Chữ cái đầu: H)" },
-  { id: 3, answer: "ANTOAN", keyPos: 0, offset: 5, clue: "Yếu tố quan trọng mà Nhà nước cần bảo đảm cho người dân và người tố giác khi họ dũng cảm đứng ra vạch trần sai phạm tham nhũng? (6 chữ cái)", hint: "Khi đứng ra tố cáo tham nhũng, điều người dân lo lắng nhất và cần cơ quan pháp luật bảo vệ chính là sự [...] về tính mạng, tài sản của bản thân? (Chữ cái đầu: A)" },
-  { id: 4, answer: "PHONGCHONG", keyPos: 0, offset: 5, clue: "Cụm từ đi liền trước 'tham nhũng' để chỉ các biện pháp ngăn ngừa từ sớm và đấu tranh triệt tiêu sai phạm? (10 chữ cái)", hint: "Hoạt động ngăn chặn từ trước và bài trừ tiêu cực trong bộ máy nhà nước được gọi là công tác [...] tham nhũng? (Chữ cái đầu: P)" },
-  { id: 5, answer: "QUYENLUC", keyPos: 0, offset: 5, clue: "Tham nhũng phản ánh sự tha hóa của thứ gì khi không được giám sát và kiểm soát chặt chẽ? (8 chữ cái)", hint: "Kẻ tham nhũng đã lạm dụng và tha hóa thứ [...] nhà nước giao phó vào mục đích tư lợi? (Chữ cái đầu: Q)" },
-  { id: 6, answer: "CONGVU", keyPos: 5, offset: 0, clue: "Hoạt động thực thi chức trách, nhiệm vụ của cán bộ, công chức nhà nước nhằm phục vụ nhân dân được gọi chung là gì? (6 chữ cái)", hint: "Quá trình cán bộ làm việc, tiếp dân và giải quyết hồ sơ giấy tờ tại trụ sở nhà nước được gọi là quá trình thực thi [...]? (Chữ cái đầu: C)" },
-  { id: 7, answer: "YTHUC", keyPos: 0, offset: 5, clue: "Yếu tố tự giác bên trong của mỗi công dân về việc tuân thủ pháp luật và kiên quyết nói không với 'chi phí bôi trơn' gọi là gì? (5 chữ cái)", hint: "Tinh thần tự giác, không đi đường tắt và không thỏa hiệp với cái sai phản ánh [...] chấp hành pháp luật của mỗi công dân? (Chữ cái đầu: Y)" },
-  { id: 8, answer: "ONLINE", keyPos: 5, offset: 0, clue: "Hình thức nộp hồ sơ, giải quyết thủ tục trên môi trường mạng để hạn chế tiếp xúc trực tiếp bằng tiền mặt và giảm tiêu cực? (6 chữ cái)", hint: "Để không phải đến tận nơi gặp trực tiếp cán bộ, người dân nên nộp hồ sơ qua mạng internet theo hình thức [...]? (Chữ cái đầu: O)" },
-  { id: 9, answer: "NHUNGNHIEU", keyPos: 0, offset: 5, clue: "Hành vi cán bộ cố tình gây khó khăn, trì hoãn hoặc bắt bẻ lỗi sai không đáng có để ép người dân chi tiền được gọi là gì? (10 chữ cái)", hint: "Tình trạng cán bộ cố ý vẽ thêm lỗi, gây phiền hà để ép dân chi tiền bôi trơn được gọi là tệ nạn [...]? (Chữ cái đầu: N)" }
+/* ============ DATA ============ */
+const DATA=[
+  {id:1,ans:"PHANANH",kp:0,off:5,q:"Quyền của công dân khi gửi thông tin về các dấu hiệu vi phạm, tiêu cực đến cơ quan chức năng hoặc cổng dịch vụ công trực tuyến gọi là gì? (7 chữ cái)",h:"Khi gặp cán bộ gây khó dễ, người dân có quyền gọi lên đường dây nóng để [...] sai phạm? (Chữ cái đầu: P)"},
+  {id:2,ans:"HOILO",kp:0,off:5,q:"Hành vi đưa tiền hoặc lợi ích vật chất ngoài quy định để được giải quyết công việc nhanh chóng gọi là gì? (5 chữ cái)",h:"Hành động lén lút đưa tiền phong bì cho cán bộ để được ưu tiên làm nhanh gọi là hành vi đưa [...]? (Chữ cái đầu: H)"},
+  {id:3,ans:"ANTOAN",kp:0,off:5,q:"Yếu tố quan trọng mà Nhà nước cần bảo đảm cho người dân và người tố giác khi họ dũng cảm đứng ra vạch trần sai phạm tham nhũng? (6 chữ cái)",h:"Khi đứng ra tố cáo tham nhũng, điều người dân lo lắng nhất và cần cơ quan pháp luật bảo vệ chính là sự [...] về tính mạng, tài sản của bản thân? (Chữ cái đầu: A)"},
+  {id:4,ans:"PHONGCHONG",kp:0,off:5,q:"Cụm từ đi liền trước 'tham nhũng' để chỉ các biện pháp ngăn ngừa từ sớm và đấu tranh triệt tiêu sai phạm? (10 chữ cái)",h:"Hoạt động ngăn chặn từ trước và bài trừ tiêu cực trong bộ máy nhà nước được gọi là công tác [...] tham nhũng? (Chữ cái đầu: P)"},
+  {id:5,ans:"QUYENLUC",kp:0,off:5,q:"Tham nhũng phản ánh sự tha hóa của thứ gì khi không được giám sát và kiểm soát chặt chẽ? (8 chữ cái)",h:"Kẻ tham nhũng đã lạm dụng và tha hóa thứ [...] nhà nước giao phó vào mục đích tư lợi? (Chữ cái đầu: Q)"},
+  {id:6,ans:"CONGVU",kp:5,off:0,q:"Hoạt động thực thi chức trách, nhiệm vụ của cán bộ, công chức nhà nước nhằm phục vụ nhân dân được gọi chung là gì? (6 chữ cái)",h:"Quá trình cán bộ làm việc, tiếp dân và giải quyết hồ sơ giấy tờ tại trụ sở nhà nước được gọi là quá trình thực thi [...]? (Chữ cái đầu: C)"},
+  {id:7,ans:"YTHUC",kp:0,off:5,q:"Yếu tố tự giác bên trong của mỗi công dân về việc tuân thủ pháp luật và kiên quyết nói không với 'chi phí bôi trơn' gọi là gì? (5 chữ cái)",h:"Tinh thần tự giác, không đi đường tắt và không thỏa hiệp với cái sai phản ánh [...] chấp hành pháp luật của mỗi công dân? (Chữ cái đầu: Y)"},
+  {id:8,ans:"ONLINE",kp:5,off:0,q:"Hình thức nộp hồ sơ, giải quyết thủ tục trên môi trường mạng để hạn chế tiếp xúc trực tiếp bằng tiền mặt và giảm tiêu cực? (6 chữ cái)",h:"Để không phải đến tận nơi gặp trực tiếp cán bộ, người dân nên nộp hồ sơ qua mạng internet theo hình thức [...]? (Chữ cái đầu: O)"},
+  {id:9,ans:"NHUNGNHIEU",kp:0,off:5,q:"Hành vi cán bộ cố tình gây khó khăn, trì hoãn hoặc bắt bẻ lỗi sai không đáng có để ép người dân chi tiền được gọi là gì? (10 chữ cái)",h:"Tình trạng cán bộ cố ý vẽ thêm lỗi, gây phiền hà để ép dân chi tiền bôi trơn được gọi là tệ nạn [...]? (Chữ cái đầu: N)"}
 ];
+const COLS=15;
 
-const TOTAL_COLS = 15;
+/* ============ STATE ============ */
+let sel=0, done=Array(DATA.length).fill(false);
+const $=id=>document.getElementById(id);
+const board=$('board'),cLabel=$('cLabel'),cText=$('cText'),hintP=$('hintPanel'),inp=$('inp'),
+      msgEl=$('msg'),kwAns=$('kwAns'),kwSub=$('kwSub'),scoreV=$('scoreVal'),
+      pBar=$('pBar'),pctT=$('pctText');
 
-// ============================================
-// GAME STATE
-// ============================================
-let selectedRow = 0;
-let solved = new Array(CROSSWORD_DATA.length).fill(false);
+function strip(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').replace(/[^a-zA-Z]/g,'').toUpperCase();}
 
-// DOM
-const cwBoard = document.getElementById('cwBoard');
-const clueBadge = document.getElementById('clueBadge');
-const clueText = document.getElementById('clueText');
-const hintBox = document.getElementById('hintBox');
-const answerInput = document.getElementById('answerInput');
-const btnCheck = document.getElementById('btnCheck');
-const btnHint = document.getElementById('btnHint');
-const btnReveal = document.getElementById('btnReveal');
-const feedback = document.getElementById('feedback');
-const btnKeyword = document.getElementById('btnKeyword');
-const btnReset = document.getElementById('btnReset');
-const keywordAnswer = document.getElementById('keywordAnswer');
-const keywordSub = document.getElementById('keywordSub');
-const scoreText = document.getElementById('scoreText');
-const progressFill = document.getElementById('progressFill');
-const progressPercent = document.getElementById('progressPercent');
-const btnSound = document.getElementById('btnSound');
-const btnFullscreen = document.getElementById('btnFullscreen');
-
-// ============================================
-// RENDER
-// ============================================
-function removeAccents(str) {
-  return str.normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/đ/g, 'd').replace(/Đ/g, 'D')
-    .replace(/[^a-zA-Z]/g, '')
-    .toUpperCase();
-}
-
-function renderBoard() {
-  cwBoard.innerHTML = '';
-  CROSSWORD_DATA.forEach((item, idx) => {
-    const row = document.createElement('div');
-    row.className = 'cw-row' + (idx === selectedRow ? ' active' : '') + (solved[idx] ? ' solved' : '');
-
-    const num = document.createElement('div');
-    num.className = 'cw-num';
-    num.textContent = item.id;
-    row.appendChild(num);
-
-    const cells = document.createElement('div');
-    cells.className = 'cw-cells';
-
-    for (let i = 0; i < item.offset; i++) {
-      const c = document.createElement('div');
-      c.className = 'cw-cell empty';
-      cells.appendChild(c);
-    }
-
-    for (let i = 0; i < item.answer.length; i++) {
-      const c = document.createElement('div');
-      const isKey = (i === item.keyPos);
-      c.className = 'cw-cell' + (isKey ? ' key' : '') + (solved[idx] ? ' revealed' : '');
-      c.textContent = solved[idx] ? item.answer[i] : '';
-      cells.appendChild(c);
-    }
-
-    const used = item.offset + item.answer.length;
-    for (let i = used; i < TOTAL_COLS; i++) {
-      const c = document.createElement('div');
-      c.className = 'cw-cell empty';
-      cells.appendChild(c);
-    }
-
-    row.appendChild(cells);
-    row.addEventListener('click', () => { sfxClick(); selectRow(idx); });
-    cwBoard.appendChild(row);
+function render(){
+  board.innerHTML='';
+  DATA.forEach((d,i)=>{
+    const r=document.createElement('div');
+    r.className='row'+(i===sel?' active':'')+(done[i]?' done':'');
+    const n=document.createElement('div');n.className='row-num';n.textContent=d.id;r.appendChild(n);
+    const cs=document.createElement('div');cs.className='cells';
+    for(let j=0;j<d.off;j++){const c=document.createElement('div');c.className='cell empty';cs.appendChild(c);}
+    for(let j=0;j<d.ans.length;j++){const c=document.createElement('div');c.className='cell'+(j===d.kp?' key':'')+(done[i]?' revealed':'');c.textContent=done[i]?d.ans[j]:'';cs.appendChild(c);}
+    const used=d.off+d.ans.length;for(let j=used;j<COLS;j++){const c=document.createElement('div');c.className='cell empty';cs.appendChild(c);}
+    r.appendChild(cs);r.addEventListener('click',()=>{sfxTap();pick(i);});board.appendChild(r);
   });
 }
 
-function selectRow(idx) {
-  selectedRow = idx;
-  const item = CROSSWORD_DATA[idx];
-  clueBadge.textContent = 'Hàng ngang ' + item.id;
-  clueText.textContent = item.clue;
-  answerInput.value = '';
-  feedback.className = 'feedback';
-  hintBox.className = 'hint-box';
-  answerInput.focus();
-  renderBoard();
+function pick(i){
+  sel=i;const d=DATA[i];
+  cLabel.textContent='📌 Hàng ngang '+d.id;
+  cText.textContent=d.q;
+  inp.value=''; msgEl.className='msg'; hintP.className='hint-panel';
+  inp.focus(); render();
 }
 
-function updateProgress() {
-  const count = solved.filter(Boolean).length;
-  scoreText.textContent = count + ' / ' + CROSSWORD_DATA.length;
-  const pct = Math.round((count / CROSSWORD_DATA.length) * 100);
-  progressFill.style.width = pct + '%';
-  progressPercent.textContent = pct + '%';
+function progress(){
+  const c=done.filter(Boolean).length;
+  scoreV.textContent=c+' / '+DATA.length;
+  const p=Math.round(c/DATA.length*100);
+  pBar.style.width=p+'%'; pctT.textContent=p+'%';
 }
 
-// ============================================
-// ACTIONS
-// ============================================
-btnCheck.addEventListener('click', () => {
-  const item = CROSSWORD_DATA[selectedRow];
-  const user = removeAccents(answerInput.value.trim());
-  const correct = removeAccents(item.answer);
+$('bCheck').onclick=()=>{
+  const d=DATA[sel],u=strip(inp.value.trim()),a=strip(d.ans);
+  if(u===a){done[sel]=true;sfxOk();msgEl.textContent='✓ Chính xác! Đáp án: '+d.ans;msgEl.className='msg ok';hintP.className='hint-panel';render();progress();}
+  else{sfxNo();msgEl.textContent='✕ Chưa chính xác, hãy thử lại!';msgEl.className='msg err';inp.classList.add('shake');setTimeout(()=>inp.classList.remove('shake'),350);}
+};
+inp.addEventListener('keydown',e=>{if(e.key==='Enter')$('bCheck').click();});
 
-  if (user === correct) {
-    solved[selectedRow] = true;
-    sfxCorrect();
-    feedback.textContent = '✓ Chính xác! Đáp án: ' + item.answer;
-    feedback.className = 'feedback correct';
-    hintBox.className = 'hint-box';
-    renderBoard();
-    updateProgress();
-  } else {
-    sfxWrong();
-    feedback.textContent = '✕ Chưa chính xác, hãy thử lại!';
-    feedback.className = 'feedback wrong';
-    answerInput.classList.add('shake');
-    setTimeout(() => answerInput.classList.remove('shake'), 400);
-  }
-});
+$('bHint').onclick=()=>{
+  sfxPop();const d=DATA[sel];
+  if(hintP.classList.contains('open')){hintP.className='hint-panel';}
+  else{hintP.textContent='💡 '+d.h;hintP.className='hint-panel open';}
+};
 
-answerInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') btnCheck.click();
-});
+$('bReveal').onclick=()=>{sfxReveal();const d=DATA[sel];done[sel]=true;msgEl.textContent='👁 Đáp án: '+d.ans;msgEl.className='msg ok';hintP.className='hint-panel';render();progress();};
 
-btnHint.addEventListener('click', () => {
-  sfxHint();
-  const item = CROSSWORD_DATA[selectedRow];
-  if (hintBox.classList.contains('show')) {
-    hintBox.className = 'hint-box';
-  } else {
-    hintBox.textContent = '💡 ' + item.hint;
-    hintBox.className = 'hint-box show';
-  }
-});
+$('bKey').onclick=()=>{done.fill(true);render();progress();sfxFanfare();kwAns.classList.add('show');kwSub.classList.add('show');setTimeout(confetti,250);setTimeout(fireworks,450);setTimeout(confetti,1400);};
 
-btnReveal.addEventListener('click', () => {
-  sfxReveal();
-  const item = CROSSWORD_DATA[selectedRow];
-  solved[selectedRow] = true;
-  feedback.textContent = '👁 Đáp án: ' + item.answer;
-  feedback.className = 'feedback correct';
-  hintBox.className = 'hint-box';
-  renderBoard();
-  updateProgress();
-});
+$('bReset').onclick=()=>{sfxTap();done.fill(false);kwAns.classList.remove('show');kwSub.classList.remove('show');pick(0);progress();};
 
-btnKeyword.addEventListener('click', () => {
-  solved.fill(true);
-  renderBoard();
-  updateProgress();
-  sfxVictory();
-  keywordAnswer.classList.add('visible');
-  keywordSub.classList.add('visible');
-  setTimeout(launchConfetti, 300);
-  setTimeout(launchFireworks, 500);
-  setTimeout(launchConfetti, 1500);
-});
+$('btnAudio').onclick=function(){audioOn=!audioOn;this.textContent=audioOn?'🔊':'🔇';if(audioOn){bgmOn=true;bgmLoop();}else bgmOn=false;};
+$('btnFS').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});else document.exitFullscreen();};
 
-btnReset.addEventListener('click', () => {
-  sfxClick();
-  solved.fill(false);
-  keywordAnswer.classList.remove('visible');
-  keywordSub.classList.remove('visible');
-  selectRow(0);
-  updateProgress();
-});
-
-// Sound toggle
-btnSound.addEventListener('click', () => {
-  soundEnabled = !soundEnabled;
-  btnSound.textContent = soundEnabled ? '🔊' : '🔇';
-  btnSound.classList.toggle('active', soundEnabled);
-  if (soundEnabled) {
-    startBGM();
-  } else {
-    stopBGM();
-  }
-});
-
-// Fullscreen
-btnFullscreen.addEventListener('click', () => {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().catch(() => {});
-  } else {
-    document.exitFullscreen();
-  }
-});
-
-// ============================================
-// INIT
-// ============================================
-renderBoard();
-selectRow(0);
-updateProgress();
-
-// Auto-start BGM on first interaction
-document.addEventListener('click', function initAudio() {
-  ensureAudioCtx();
-  if (soundEnabled) startBGM();
-  document.removeEventListener('click', initAudio);
-}, { once: true });
+/* ============ INIT ============ */
+render(); pick(0); progress();
+document.addEventListener('click',function f(){initAC();bgmOn=true;bgmLoop();document.removeEventListener('click',f);},{once:true});
 </script>
 </body>
 </html>

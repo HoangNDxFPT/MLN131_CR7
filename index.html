@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bài thuyết trình: Phòng, chống tham nhũng và trách nhiệm công dân trong xây dựng Nhà nước pháp quyền XHCN ở Việt Nam — Nhóm 7">
+  <title>Phòng Chống Tham Nhũng — Nhóm 7</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Decorative background -->
+  <div class="bg-deco"></div>
+  <div class="bg-grid"></div>
+
+  <!-- Navigation dots -->
+  <nav class="nav-dots" id="navDots" aria-label="Điều hướng slide"></nav>
+
+  <!-- Navigation controls -->
+  <div class="nav-controls" id="navControls">
+    <button class="nav-btn" id="btnPrev" aria-label="Slide trước" disabled>
+      <i data-lucide="chevron-left" style="width:20px;height:20px;"></i>
+    </button>
+    <span class="slide-counter" id="slideCounter">1 / 12</span>
+    <button class="nav-btn" id="btnNext" aria-label="Slide tiếp theo">
+      <i data-lucide="chevron-right" style="width:20px;height:20px;"></i>
+    </button>
+  </div>
+
+
+  <!-- ============================
+       SLIDE 1 — TRANG TIÊU ĐỀ
+       ============================ -->
+  <section class="slide hero-section" id="slide-1" data-slide="1">
+    <div class="hero-bg">
+      <img src="Image/11.webp"
+           alt="Nhà Quốc hội Việt Nam" loading="eager">
+    </div>
+
+    <div class="slide-inner flex-col gap-6">
+      <div class="hero-a d1">
+        <span class="badge badge-teal">
+          <i data-lucide="presentation" style="width:14px;height:14px;"></i>
+          Bài thuyết trình
+        </span>
+      </div>
+
+      <h1 class="h-hero hero-a d2" style="max-width:880px;">
+        Phòng, chống tham nhũng và trách nhiệm công dân trong xây dựng
+        <span class="t-gradient">Nhà nước pháp quyền XHCN</span> ở Việt Nam
+      </h1>
+
+      <div class="divider hero-a d3"></div>
+
+      <div class="hero-meta hero-a d3">
+        <div class="hero-chip">
+          <i data-lucide="users" style="width:16px;height:16px;color:var(--teal-500);"></i>
+          Nhóm 7
+        </div>
+        <div class="hero-chip">
+          <i data-lucide="book-open" style="width:16px;height:16px;color:var(--teal-500);"></i>
+          Chủ nghĩa xã hội khoa học
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================
+       SLIDE 2 — VẤN ĐỀ THỰC TẾ
+       ============================ -->
+  <section class="slide" id="slide-2" data-slide="2">
+    <div class="slide-inner">
+
+      <span class="badge badge-rose anim">
+        <i data-lucide="alert-triangle" style="width:14px;height:14px;"></i>
+        Vấn đề thực tế
+      </span>
+
+      <h2 class="h-xl anim">
+        Tham nhũng vặt <span class="t-rose">ngay trong đời sống</span>
+      </h2>
+
+      <img src="Image/7p1wq11BMzYuH-8rX0RoQagItiW66ulGHJRXO0bwYOZVpkBZjTcKpCakMc9xzHtvICY306bnqcneWRQw7GeCUN_3-uzoz8i6xCNC4zSJIjfQEpAF9FxeRFarh6D4GbjZfbsmpAP8upSEfBOxl45xay2DDsRJEdo_YWkGpw00tWc.jpg"
+           alt="Tham nhũng vặt trong đời sống"
+           class="img-section anim" loading="lazy">
+      <p class="img-caption anim">Tham nhũng vặt trong đời sống thực tế</p>
+
+      <div class="grid-2 stagger mt-6">
+        <div class="card card-stripe-rose anim">
+          <div class="icon-box icon-rose">
+            <i data-lucide="file-warning" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Thủ tục hành chính</h3>
+          <p class="t-body">
+            Tham nhũng vặt diễn ra phổ biến trong các thủ tục hành chính hàng ngày — từ cấp giấy phép, đăng ký kinh doanh, đến xin xác nhận giấy tờ. Người dân thường phải chờ đợi kéo dài hoặc bị gây khó dễ khi không "bôi trơn".
+          </p>
+        </div>
+
+        <div class="card card-stripe-rose anim">
+          <div class="icon-box icon-rose">
+            <i data-lucide="building-2" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Doanh nghiệp chịu thiệt</h3>
+          <p class="t-body">
+            Doanh nghiệp nhỏ phải đối mặt với tình trạng bị gây phiền hà, kéo dài thời gian xử lý hồ sơ, tạo áp lực chi phí không chính thức để "mọi việc suôn sẻ".
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+       SLIDE 3 — KHÁI NIỆM
+       ============================ -->
+  <section class="slide" id="slide-3" data-slide="3">
+    <div class="slide-inner">
+
+      <div class="split">
+        <div>
+          <span class="badge badge-teal anim">
+            <i data-lucide="book-open" style="width:14px;height:14px;"></i>
+            Khái niệm
+          </span>
+
+          <h2 class="h-xl anim">
+            Tham nhũng <span class="t-gradient">là gì?</span>
+          </h2>
+
+          <div class="anim">
+            <blockquote class="quote">
+              Tham nhũng là hành vi của người có chức vụ, quyền hạn đã lợi dụng chức vụ, quyền hạn đó vì vụ lợi.
+            </blockquote>
+          </div>
+
+          <div class="card card-flat mt-6 anim">
+            <p class="t-body">
+              Theo <strong>Luật Phòng, chống tham nhũng 2018</strong>, tham nhũng bao gồm: tham ô tài sản, nhận hối lộ, lạm dụng chức vụ quyền hạn chiếm đoạt tài sản, lợi dụng chức vụ trong thi hành công vụ vì vụ lợi.
+            </p>
+            <p class="t-small mt-4">
+              <i data-lucide="info" style="width:14px;height:14px;display:inline;vertical-align:middle;"></i>
+              Nguồn: Luật PCTN số 36/2018/QH14
+            </p>
+          </div>
+        </div>
+
+        <div class="anim">
+          <img src="Image/m72eNQ6W_RnTgQwSXcP_pXBAh9it7UG_XQzKvJld8NJ_DLBYa_x7fLBEmPPWF730LxnkcMWi7RoA8vIPC9aSUo-kJk-VE7j_XhuL_c2r06bzI7Tr1pExjx9zOV7FqMi0WYOAIA_EWmHzhE5zZacRGX3XUuaxJSCpwYcnselVsi4.jpg"
+               alt="Khái niệm tham nhũng"
+               class="img-split" loading="lazy">
+          <p class="img-caption">Khái niệm tham nhũng</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+       SLIDE 4 — CÁC DẠNG THAM NHŨNG
+       ============================ -->
+  <section class="slide" id="slide-4" data-slide="4">
+    <div class="slide-inner">
+
+      <span class="badge badge-rose anim">
+        <i data-lucide="layers" style="width:14px;height:14px;"></i>
+        Phân loại
+      </span>
+
+      <h2 class="h-xl anim">
+        Các dạng <span class="t-rose">tham nhũng</span>
+      </h2>
+
+      <div class="grid-2 stagger mt-6">
+        <!-- Tham nhũng lớn -->
+        <div class="card card-stripe-amber anim">
+          <img src="Image/tham nhũng lớn.jpg"
+               alt="Tham nhũng lớn" class="img-card" loading="lazy">
+          <div class="icon-box icon-amber">
+            <i data-lucide="landmark" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Tham nhũng lớn</h3>
+          <ul class="checklist">
+            <li>
+              <span class="li-icon li-amber"><i data-lucide="minus" style="width:14px;height:14px;"></i></span>
+              <span>Xảy ra ở cấp cao, quy mô lớn</span>
+            </li>
+            <li>
+              <span class="li-icon li-amber"><i data-lucide="minus" style="width:14px;height:14px;"></i></span>
+              <span>Liên quan đến dự án, chính sách lớn</span>
+            </li>
+            <li>
+              <span class="li-icon li-amber"><i data-lucide="minus" style="width:14px;height:14px;"></i></span>
+              <span>Thiệt hại lớn cho ngân sách nhà nước</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tham nhũng vặt -->
+        <div class="card card-stripe-rose card-glow anim">
+          <img src="Image/Tham nhũng vặt.jpg"
+               alt="Tham nhũng vặt" class="img-card" loading="lazy">
+          <div style="display:flex; align-items:center; gap:var(--sp-3); margin-bottom:var(--sp-4);">
+            <div class="icon-box icon-rose" style="margin-bottom:0;">
+              <i data-lucide="hand-coins" style="width:24px;height:24px;"></i>
+            </div>
+            <span class="scenario-tag" style="margin-bottom:0;">Trọng tâm</span>
+          </div>
+          <h3 class="h-md">Tham nhũng vặt</h3>
+          <ul class="checklist">
+            <li>
+              <span class="li-icon li-rose"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i></span>
+              <span>Xảy ra hàng ngày, ở cấp cơ sở</span>
+            </li>
+            <li>
+              <span class="li-icon li-rose"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i></span>
+              <span>Quy mô nhỏ nhưng ảnh hưởng rộng</span>
+            </li>
+            <li>
+              <span class="li-icon li-rose"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i></span>
+              <span>Tác động trực tiếp đến đời sống người dân</span>
+            </li>
+            <li>
+              <span class="li-icon li-rose"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i></span>
+              <span>Gây mất niềm tin vào bộ máy nhà nước</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+       SLIDE 5 — VAI TRÒ PCTN
+       ============================ -->
+  <section class="slide" id="slide-5" data-slide="5">
+    <div class="slide-inner">
+
+      <span class="badge badge-teal anim">
+        <i data-lucide="shield-check" style="width:14px;height:14px;"></i>
+        Vai trò
+      </span>
+
+      <h2 class="h-xl anim">
+        Vì sao phải <span class="t-gradient">phòng chống tham nhũng?</span>
+      </h2>
+
+      <img src="Image/OIP.webp"
+           alt="Vì sao phải phòng chống tham nhũng?"
+           class="img-section anim" loading="lazy">
+      <p class="img-caption anim">Vai trò của việc phòng chống tham nhũng</p>
+
+      <div class="grid-3 stagger mt-6">
+        <div class="card card-stripe-teal text-center anim">
+          <div class="icon-box icon-teal" style="margin:0 auto var(--sp-4);">
+            <i data-lucide="flag" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Bảo vệ chế độ</h3>
+          <p class="t-body">
+            Tham nhũng làm suy yếu Đảng, Nhà nước và hệ thống chính trị. PCTN là bảo vệ sự ổn định và phát triển đất nước.
+          </p>
+        </div>
+
+        <div class="card card-stripe-teal text-center anim">
+          <div class="icon-box icon-teal" style="margin:0 auto var(--sp-4);">
+            <i data-lucide="scale" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Củng cố pháp quyền</h3>
+          <p class="t-body">
+            Nhà nước pháp quyền XHCN đòi hỏi mọi người đều bình đẳng trước pháp luật, không có vùng cấm trong xử lý tham nhũng.
+          </p>
+        </div>
+
+        <div class="card card-stripe-emerald text-center anim">
+          <div class="icon-box icon-emerald" style="margin:0 auto var(--sp-4);">
+            <i data-lucide="heart-handshake" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Công bằng xã hội</h3>
+          <p class="t-body">
+            Tham nhũng tạo bất bình đẳng. PCTN đảm bảo quyền lợi cho mọi công dân, không phân biệt giàu nghèo.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+       SLIDE 6 — TÌNH HUỐNG
+       ============================ -->
+  <section class="slide" id="slide-6" data-slide="6">
+    <div class="slide-inner">
+
+      <span class="badge badge-rose anim">
+        <i data-lucide="message-circle-warning" style="width:14px;height:14px;"></i>
+        Tình huống
+      </span>
+
+      <h2 class="h-xl anim">
+        Câu chuyện <span class="t-rose">từ thực tế</span>
+      </h2>
+
+      <div class="split mt-4">
+        <div>
+          <div class="card scenario-card anim">
+            <span class="scenario-tag">Tình huống giả định (Đề bài)</span>
+
+            <p class="t-body mb-4" style="font-weight: 500; color: var(--text-heading);">
+              <strong>Chị Lan</strong> — chủ doanh nghiệp nhỏ kinh doanh thực phẩm & dịch vụ ăn uống xin cấp <em>Giấy chứng nhận An toàn thực phẩm</em> & <em>Biên bản nghiệm thu PCCC</em> để mở chi nhánh mới.
+            </p>
+
+            <div class="divider-line mb-4"></div>
+
+            <div class="flex-col gap-6">
+              <div style="display:flex; align-items:flex-start; gap:var(--sp-4);">
+                <div class="icon-box icon-rose" style="margin-bottom:0;">
+                  <i data-lucide="file-x" style="width:22px;height:22px;"></i>
+                </div>
+                <div>
+                  <h3 class="h-md" style="margin-bottom:var(--sp-2);">Gây khó dễ, kéo dài thời gian</h3>
+                  <p class="t-body">
+                    Cán bộ thụ lý không trực tiếp đòi tiền nhưng liên tục trả hồ sơ với lý do "thiếu sót kỹ thuật nhỏ" chưa rõ ràng, liên tục kéo dài thời gian hẹn trả kết quả.
+                  </p>
+                </div>
+              </div>
+
+              <div class="divider-line"></div>
+
+              <div style="display:flex; align-items:flex-start; gap:var(--sp-4);">
+                <div class="icon-box icon-amber" style="margin-bottom:0;">
+                  <i data-lucide="user-check" style="width:22px;height:22px;"></i>
+                </div>
+                <div>
+                  <h3 class="h-md" style="margin-bottom:var(--sp-2);">"Cò dịch vụ" gạ gẫm 30 triệu</h3>
+                  <p class="t-body">
+                    Một "đơn vị tư vấn dịch vụ trọn gói" liên hệ cam kết hồ sơ duyệt trong 5 ngày làm việc nếu chi "phí hỗ trợ thẩm định hiện trường" là <strong>30 triệu đồng</strong>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="anim">
+          <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80"
+               alt="Người ký giấy tờ hành chính"
+               class="img-split" loading="lazy">
+          <p class="img-caption">Thủ tục giấy tờ (Unsplash)</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+       SLIDE 7 — PHÂN TÍCH
+       ============================ -->
+  <section class="slide" id="slide-7" data-slide="7">
+    <div class="slide-inner">
+
+      <span class="badge badge-rose anim">
+        <i data-lucide="search" style="width:14px;height:14px;"></i>
+        Phân tích
+      </span>
+
+      <h2 class="h-xl anim">
+        Phân tích <span class="t-rose">hành vi sai phạm</span>
+      </h2>
+
+      <div class="grid-3 stagger mt-6">
+        <div class="card card-stripe-rose anim">
+          <div class="icon-box icon-rose">
+            <i data-lucide="ban" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Nhũng nhiễu</h3>
+          <p class="t-body">
+            Cố tình gây khó khăn, cản trở, kéo dài thời gian xử lý hồ sơ mà không có lý do chính đáng. Biểu hiện điển hình của tham nhũng vặt.
+          </p>
+        </div>
+
+        <div class="card card-stripe-rose anim">
+          <div class="icon-box icon-rose">
+            <i data-lucide="shield-off" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Lạm dụng quyền lực</h3>
+          <p class="t-body">
+            Cán bộ sử dụng quyền hạn được giao để tạo áp lực, biến dịch vụ công thành "đặc quyền" phục vụ lợi ích cá nhân.
+          </p>
+        </div>
+
+        <div class="card card-stripe-rose anim">
+          <div class="icon-box icon-amber">
+            <i data-lucide="hand-coins" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Hối lộ gián tiếp</h3>
+          <p class="t-body">
+            Không trực tiếp đòi tiền nhưng tạo tình huống buộc người dân tìm đến trung gian và chi "phí bôi trơn". Khó phát hiện.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8 anim">
+        <img src="Image/Phân tích hành vi sai phạm.jpg"
+             alt="Phân tích hành vi sai phạm"
+             class="img-section anim" loading="lazy">
+        <p class="img-caption anim">Phân tích chi tiết các hành vi sai phạm</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+       SLIDE 8 — BẢN CHẤT
+       ============================ -->
+  <section class="slide" id="slide-8" data-slide="8">
+    <div class="slide-inner">
+
+      <span class="badge badge-amber anim">
+        <i data-lucide="eye" style="width:14px;height:14px;"></i>
+        Bản chất
+      </span>
+
+      <h2 class="h-xl anim">
+        Bản chất <span class="t-amber">cơ chế "xin – cho"</span>
+      </h2>
+
+      <div class="split mt-4">
+        <div>
+          <div class="timeline stagger">
+            <div class="timeline-item anim">
+              <div class="step-num">1</div>
+              <div class="card card-sm card-flat" style="flex:1;">
+                <h3 class="h-md">Không đòi tiền trực tiếp</h3>
+                <p class="t-body">
+                  Cán bộ không yêu cầu tiền công khai mà dùng cách gây khó dễ, tạo rào cản hành chính để người dân "tự hiểu".
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item anim">
+              <div class="step-num">2</div>
+              <div class="card card-sm card-flat" style="flex:1;">
+                <h3 class="h-md">Tạo áp lực để thu tiền</h3>
+                <p class="t-body">
+                  Kéo dài, từ chối không lý do, yêu cầu bổ sung vô lý — buộc người dân tìm "cò" hoặc đưa "phí bôi trơn".
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item anim">
+              <div class="step-num">3</div>
+              <div class="card card-sm card-flat" style="flex:1;">
+                <h3 class="h-md">Cơ chế "xin – cho"</h3>
+                <p class="t-body">
+                  Quyền lợi hợp pháp bị biến thành "ơn huệ" do cán bộ ban phát. Người dân phải "xin" thay vì được "phục vụ".
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="anim">
+          <img src="Image/download.webp"
+               alt="Bản chất cơ chế xin - cho"
+               class="img-split" loading="lazy">
+          <p class="img-caption">Bản chất cơ chế "xin – cho"</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+       SLIDE 9 — GIẢI PHÁP DN
+       ============================ -->
+  <section class="slide" id="slide-9" data-slide="9">
+    <div class="slide-inner">
+
+      <span class="badge badge-emerald anim">
+        <i data-lucide="lightbulb" style="width:14px;height:14px;"></i>
+        Giải pháp
+      </span>
+
+      <h2 class="h-xl anim">
+        Doanh nghiệp <span class="t-emerald">có thể làm gì?</span>
+      </h2>
+
+      <div class="grid-3 stagger mt-6">
+        <div class="card card-stripe-emerald text-center card-glow anim">
+          <img src="Image/YlzBVLa2UkyM6Zd92_JQOiMX2Pp_O9hh15gpoBLCeGI-z0mgMlEJyKFPKeKJK6-QkMzhh-eWF0vmDqF5LCiBJwn-uQvNpTK5uVJjK09wzHCnL8EZEnF1kVBvsiKBFCfsUQICOA31y81edGs7vZwpnP541RhgdnnW0f0dC9EM7LQ.jpg"
+               alt="Nộp hồ sơ online - Cổng dịch vụ công quốc gia" class="img-card" loading="lazy">
+          <div class="icon-box icon-teal" style="margin:0 auto var(--sp-4);">
+            <i data-lucide="monitor-smartphone" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Nộp hồ sơ online</h3>
+          <p class="t-body">
+            Ưu tiên dịch vụ công trực tuyến để giảm tiếp xúc trực tiếp, hạn chế cơ hội bị nhũng nhiễu.
+          </p>
+        </div>
+
+        <div class="card card-stripe-emerald text-center card-glow anim">
+          <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=500&q=80"
+               alt="Tài liệu bằng chứng" class="img-card" loading="lazy">
+          <div class="icon-box icon-amber" style="margin:0 auto var(--sp-4);">
+            <i data-lucide="folder-archive" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Lưu bằng chứng</h3>
+          <p class="t-body">
+            Ghi âm, chụp ảnh, lưu biên nhận, email — tất cả bằng chứng về quá trình nộp hồ sơ.
+          </p>
+        </div>
+
+        <div class="card card-stripe-emerald text-center card-glow anim">
+          <img src="Image/Tố cáo.jpg"
+               alt="Tố cáo" class="img-card" loading="lazy">
+          <div class="icon-box icon-rose" style="margin:0 auto var(--sp-4);">
+            <i data-lucide="megaphone" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Tố cáo</h3>
+          <p class="t-body">
+            Phản ánh đến đường dây nóng, cổng thông tin, hoặc thanh tra. Pháp luật bảo vệ người tố cáo.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+       SLIDE 10 — GIẢI PHÁP NHÀ NƯỚC
+       ============================ -->
+  <section class="slide" id="slide-10" data-slide="10">
+    <div class="slide-inner">
+
+      <span class="badge badge-teal anim">
+        <i data-lucide="landmark" style="width:14px;height:14px;"></i>
+        Nhà nước
+      </span>
+
+      <h2 class="h-xl anim">
+        Giải pháp từ <span class="t-gradient">phía Nhà nước</span>
+      </h2>
+
+      <img src="Image/Giải pháp từ phía Nhà nước.jpg"
+           alt="Giải pháp từ phía Nhà nước"
+           class="img-section anim" loading="lazy">
+      <p class="img-caption anim">Các giải pháp cải cách từ phía Nhà nước</p>
+
+      <div class="timeline stagger mt-6">
+        <div class="timeline-item anim">
+          <div class="step-num" style="border-color:var(--teal-500); background:var(--teal-50); color:var(--teal-700);">1</div>
+          <div class="card card-sm card-flat" style="flex:1;">
+            <h3 class="h-md">Số hóa thủ tục hành chính</h3>
+            <p class="t-body">
+              Đẩy mạnh dịch vụ công trực tuyến cấp độ 3, 4. Giảm tiếp xúc trực tiếp, hạn chế cơ hội tham nhũng vặt.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item anim">
+          <div class="step-num" style="border-color:var(--teal-500); background:var(--teal-50); color:var(--teal-700);">2</div>
+          <div class="card card-sm card-flat" style="flex:1;">
+            <h3 class="h-md">Minh bạch quy trình</h3>
+            <p class="t-body">
+              Công khai quy trình, thời hạn, điều kiện. Người dân biết rõ quyền lợi, không bị "lệ thuộc" vào cán bộ xử lý.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item anim">
+          <div class="step-num" style="border-color:var(--teal-500); background:var(--teal-50); color:var(--teal-700);">3</div>
+          <div class="card card-sm card-flat" style="flex:1;">
+            <h3 class="h-md">Xử lý nghiêm cán bộ vi phạm</h3>
+            <p class="t-body">
+              Tăng cường thanh tra, kiểm tra. Xử lý nghiêm minh, không có vùng cấm trong xử lý tham nhũng.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+       SLIDE 11 — TRÁCH NHIỆM CÔNG DÂN
+       ============================ -->
+  <section class="slide" id="slide-11" data-slide="11">
+    <div class="slide-inner">
+
+      <span class="badge badge-emerald anim">
+        <i data-lucide="hand" style="width:14px;height:14px;"></i>
+        Công dân
+      </span>
+
+      <h2 class="h-xl anim">
+        Trách nhiệm <span class="t-emerald">của mỗi công dân</span>
+      </h2>
+
+      <img src="Image/Trách nhiệm của mỗi công dân.jpg"
+           alt="Trách nhiệm của mỗi công dân"
+           class="img-section anim" loading="lazy">
+      <p class="img-caption anim">Trách nhiệm của mỗi công dân trong phòng chống tham nhũng</p>
+
+      <div class="grid-3 stagger mt-6">
+        <div class="card card-stripe-rose text-center card-glow anim">
+          <div class="icon-box icon-rose" style="margin:0 auto var(--sp-4);">
+            <i data-lucide="shield-alert" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Nghĩa vụ công dân</h3>
+          <p class="t-body">
+            Chấp hành nghiêm luật PCTN, không "đi đường tắt" hay đưa hối lộ. Có nghĩa vụ hợp tác, hỗ trợ cơ quan chức năng xác minh và xử lý vi phạm.
+          </p>
+        </div>
+
+        <div class="card card-stripe-amber text-center card-glow anim">
+          <div class="icon-box icon-amber" style="margin:0 auto var(--sp-4);">
+            <i data-lucide="megaphone" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Quyền hạn công dân</h3>
+          <p class="t-body">
+            Có quyền phát hiện, phản ánh, tố giác, tố cáo hành vi tham nhũng; kiến nghị với cơ quan nhà nước hoàn thiện hệ thống pháp luật.
+          </p>
+        </div>
+
+        <div class="card card-stripe-teal text-center card-glow anim">
+          <div class="icon-box icon-teal" style="margin:0 auto var(--sp-4);">
+            <i data-lucide="graduation-cap" style="width:24px;height:24px;"></i>
+          </div>
+          <h3 class="h-md">Nâng cao nhận thức</h3>
+          <p class="t-body">
+            Tự trang bị kiến thức pháp luật vững vàng để không bị lừa gạt hay nhũng nhiễu, chủ động bảo vệ quyền lợi hợp pháp của bản thân và xã hội.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================
+       SLIDE 12 — CÂU HỎI TƯƠNG TÁC
+       ============================ -->
+  <section class="slide" id="slide-12" data-slide="12">
+    <div class="slide-inner">
+
+      <div class="poll-wrap">
+        <span class="badge badge-amber anim">
+          <i data-lucide="message-circle-question" style="width:14px;height:14px;"></i>
+          Câu hỏi tương tác
+        </span>
+
+        <div class="anim mt-6">
+          <p class="poll-q">
+            Nếu là bạn, bạn có trả <span class="hl">30 triệu đồng</span> để xử lý nhanh hồ sơ không?
+          </p>
+          <p class="t-body" style="color:var(--text-muted); margin-bottom:var(--sp-8);">
+            Vì sao? Hãy cùng suy nghĩ...
+          </p>
+        </div>
+
+        <div class="poll-btns anim">
+          <button class="poll-btn poll-btn-yes" id="pollYes" aria-label="Có">
+            <i data-lucide="check" style="width:20px;height:20px;display:inline;vertical-align:middle;margin-right:8px;"></i>
+            Có
+          </button>
+          <button class="poll-btn poll-btn-no" id="pollNo" aria-label="Không">
+            <i data-lucide="x" style="width:20px;height:20px;display:inline;vertical-align:middle;margin-right:8px;"></i>
+            Không
+          </button>
+        </div>
+
+        <div class="poll-resp" id="responseYes">
+          <p>
+            <strong>Nhiều người cũng nghĩ vậy</strong> — và đó chính là lý do tham nhũng vặt tồn tại. Khi ta chấp nhận "bôi trơn", ta duy trì hệ thống tham nhũng. <strong>Tiền bạn trả hôm nay sẽ trở thành gánh nặng cho người khác ngày mai.</strong>
+          </p>
+        </div>
+
+        <div class="poll-resp" id="responseNo">
+          <p>
+            <strong>Đó là lựa chọn đúng đắn.</strong> Dù khó khăn, việc từ chối tham nhũng là bảo vệ quyền lợi chính đáng và góp phần xây dựng xã hội công bằng. <strong>Hãy sử dụng pháp luật — lưu bằng chứng, tố cáo, yêu cầu giải trình.</strong>
+          </p>
+        </div>
+      </div>
+
+  <!-- ============================
+       SLIDE 13 — TRÒ CHƠI Ô CHỮ
+       ============================ -->
+  <section class="slide" id="slide-13" data-slide="13">
+    <div class="slide-inner">
+
+      <span class="badge badge-emerald anim">
+        <i data-lucide="gamepad-2" style="width:14px;height:14px;"></i>
+        Trò chơi tương tác
+      </span>
+
+      <h2 class="h-xl anim">
+        Giải ô chữ: <span class="t-gradient">Hành trình Liêm chính</span>
+      </h2>
+
+      <div class="cw-container mt-6">
+        <!-- Crossword Grid Board -->
+        <div class="cw-board anim" id="cwBoard">
+          <!-- Rows populated by JS -->
+        </div>
+
+        <!-- Clue & Controls Panel -->
+        <div class="cw-panel anim">
+          <div class="cw-clue-card" id="cwClueCard">
+            <span class="badge badge-teal mb-2" id="cwClueBadge">Hàng ngang số 1</span>
+            <p class="t-body" style="font-weight: 600; color: var(--text-heading);" id="cwClueText">
+              Bấm chọn một hàng ngang bên trái để hiển thị câu hỏi gợi ý.
+            </p>
+            <div id="cwHintBox" style="display:none; margin-top:10px; padding:10px 14px; background:var(--amber-50); border-radius:var(--r-md); border:1px solid var(--amber-400); color:var(--amber-600); font-size:var(--fs-sm); font-weight:600;">
+              <i data-lucide="lightbulb" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:6px;"></i>
+              <span id="cwHintText"></span>
+            </div>
+            <div class="cw-input-group">
+              <input type="text" class="cw-input" id="cwInput" placeholder="Nhập đáp án..." autocomplete="off">
+              <button class="cw-btn cw-btn-primary" id="cwBtnCheck">Kiểm tra</button>
+              <button class="cw-btn" id="cwBtnHint" style="background:var(--amber-500); color:white;" title="Xem gợi ý thêm">💡 Gợi ý</button>
+              <button class="cw-btn cw-btn-secondary" id="cwBtnReveal">Mở đáp án</button>
+            </div>
+            <p class="t-small mt-2" id="cwFeedback" style="display:none;"></p>
+          </div>
+
+          <div class="cw-key-card">
+            <span class="badge badge-amber mb-2">Từ khóa hàng dọc</span>
+            <p class="t-small">Đặc trưng cốt lõi của thể chế đang xây dựng (9 chữ cái)</p>
+            <div class="cw-key-solution" id="cwKeySolution">PHÁP QUYỀN</div>
+            <div style="display:flex; gap:var(--sp-2); justify-content:center; margin-top:var(--sp-2);">
+              <button class="cw-btn cw-btn-primary" id="cwBtnKey" style="background:var(--amber-500);">
+                <i data-lucide="key" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+                Giải mật mã hàng dọc
+              </button>
+              <button class="cw-btn cw-btn-secondary" id="cwBtnReset" title="Đặt lại trò chơi">
+                <i data-lucide="rotate-ccw" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+                Chơi lại
+              </button>
+            </div>
+            <p class="t-small mt-3" id="cwKeyDesc" style="display:none; color:var(--text-body); text-align:left;">
+              <strong>Ý nghĩa:</strong> <em>Pháp quyền</em> — Thượng tôn Hiến pháp & Pháp luật, kiểm soát chặt chẽ quyền lực nhà nước, bảo đảm mọi quyền lực thuộc về nhân dân và triệt tiêu tham nhũng.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 Hành Trình Liêm Chính — Giải Ô Chữ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ===================== RESET ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --bg-dark: #0a0f1a;
+      --bg-card: rgba(255,255,255,0.06);
+      --bg-card-hover: rgba(255,255,255,0.10);
+      --glass: rgba(255,255,255,0.08);
+      --glass-border: rgba(255,255,255,0.12);
+      --teal: #14b8a6;
+      --teal-glow: rgba(20,184,166,0.35);
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --amber-glow: rgba(245,158,11,0.4);
+      --rose: #f43f5e;
+      --rose-glow: rgba(244,63,94,0.35);
+      --green: #22c55e;
+      --green-glow: rgba(34,197,94,0.35);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --gold: #fbbf24;
+      --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-full: 9999px;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      font-family: var(--font);
+      background: var(--bg-dark);
+      color: var(--text-primary);
+    }
+
+    /* ===================== ANIMATED BG ===================== */
+    .bg-anim {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      overflow: hidden;
+    }
+    .bg-anim .orb {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3;
+    }
+    .bg-anim .orb:nth-child(1) {
+      width: 500px; height: 500px; background: var(--teal); top: -150px; left: -100px;
+      animation: orb1 18s ease-in-out infinite alternate;
+    }
+    .bg-anim .orb:nth-child(2) {
+      width: 400px; height: 400px; background: var(--amber); bottom: -100px; right: -80px;
+      animation: orb2 22s ease-in-out infinite alternate;
+    }
+    .bg-anim .orb:nth-child(3) {
+      width: 350px; height: 350px; background: var(--rose); top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      animation: orb3 20s ease-in-out infinite alternate;
+    }
+    @keyframes orb1 { to { transform: translate(60px, 40px) scale(1.1); } }
+    @keyframes orb2 { to { transform: translate(-50px, -30px) scale(1.15); } }
+    @keyframes orb3 { to { transform: translate(-40%, -60%) scale(0.9); } }
+
+    .bg-grid {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    /* ===================== LAYOUT ===================== */
+    .game-container {
+      position: relative; z-index: 1;
+      width: 100%; height: 100vh;
+      display: flex; flex-direction: column;
+      padding: 20px 28px;
+    }
+
+    /* --- Header --- */
+    .game-header {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0; margin-bottom: 16px;
+    }
+    .game-title {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .game-title h1 {
+      font-size: 1.5rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--teal), var(--emerald), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .game-title .emoji { font-size: 1.6rem; }
+
+    .header-controls {
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .btn-icon {
+      width: 42px; height: 42px; border-radius: var(--r-full);
+      border: 1px solid var(--glass-border); background: var(--glass);
+      color: var(--text-secondary); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; transition: all 0.2s;
+    }
+    .btn-icon:hover { background: var(--bg-card-hover); color: var(--text-primary); transform: scale(1.08); }
+    .btn-icon.active { background: var(--teal); color: white; border-color: var(--teal); }
+
+    .score-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      padding: 8px 16px; border-radius: var(--r-full);
+      font-weight: 700; font-size: 0.9rem; color: var(--gold);
+    }
+
+    .back-link {
+      color: var(--text-secondary); text-decoration: none; font-size: 0.85rem;
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: var(--r-full);
+      border: 1px solid var(--glass-border); background: var(--glass);
+      transition: all 0.2s;
+    }
+    .back-link:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+
+    /* --- Main Content --- */
+    .game-main {
+      flex: 1; display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 20px; min-height: 0;
+    }
+
+    /* --- Board Panel --- */
+    .board-panel {
+      background: var(--bg-card); border: 1px solid var(--glass-border);
+      border-radius: var(--r-xl); padding: 20px;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+    }
+    .board-panel::-webkit-scrollbar { width: 6px; }
+    .board-panel::-webkit-scrollbar-track { background: transparent; }
+    .board-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+    /* --- CW Row --- */
+    .cw-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 10px; border-radius: var(--r-md);
+      cursor: pointer; transition: all 0.2s;
+      margin-bottom: 4px;
+    }
+    .cw-row:hover { background: rgba(255,255,255,0.04); }
+    .cw-row.active { background: rgba(20,184,166,0.1); box-shadow: inset 0 0 0 1px var(--teal); }
+    .cw-row.solved { opacity: 0.6; }
+    .cw-row.solved .cw-cell { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.3); color: var(--green); }
+
+    .cw-num {
+      width: 28px; height: 28px; border-radius: var(--r-full);
+      background: var(--glass); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 800; color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+    .cw-row.active .cw-num { background: var(--teal); color: white; border-color: var(--teal); }
+    .cw-row.solved .cw-num { background: var(--green); color: white; border-color: var(--green); }
+
+    .cw-cells { display: flex; gap: 3px; }
+
+    .cw-cell {
+      width: 32px; height: 32px; border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 800; color: var(--text-primary);
+      transition: all 0.25s;
+      text-transform: uppercase;
+    }
+    .cw-cell.key {
+      background: rgba(245,158,11,0.15);
+      border-color: rgba(245,158,11,0.4);
+      color: var(--gold);
+      box-shadow: 0 0 8px rgba(245,158,11,0.15);
+    }
+    .cw-cell.revealed {
+      background: rgba(20,184,166,0.12);
+      border-color: rgba(20,184,166,0.3);
+      color: var(--teal);
+      animation: cellReveal 0.4s ease;
+    }
+    .cw-cell.key.revealed {
+      background: rgba(245,158,11,0.2);
+      border-color: var(--gold);
+      color: var(--gold);
+      box-shadow: 0 0 12px rgba(245,158,11,0.25);
+    }
+    .cw-cell.empty { visibility: hidden; pointer-events: none; }
+
+    @keyframes cellReveal {
+      0% { transform: scale(0.6) rotateX(90deg); opacity: 0; }
+      60% { transform: scale(1.15) rotateX(0); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* --- Right Panel --- */
+    .right-panel {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+
+    /* --- Clue Card --- */
+    .clue-card {
+      background: linear-gradient(135deg, rgba(20,184,166,0.08), rgba(16,185,129,0.05));
+      border: 1px solid rgba(20,184,166,0.2);
+      border-radius: var(--r-xl); padding: 20px;
+    }
+    .clue-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--teal); color: white;
+      padding: 4px 12px; border-radius: var(--r-full);
+      font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 12px;
+    }
+    .clue-text {
+      font-size: 0.95rem; font-weight: 600; line-height: 1.6;
+      color: var(--text-primary); margin-bottom: 14px;
+    }
+
+    /* --- Hint Box --- */
+    .hint-box {
+      display: none;
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: var(--r-md);
+      padding: 10px 14px; margin-bottom: 12px;
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--gold); line-height: 1.5;
+    }
+    .hint-box.show { display: block; animation: fadeIn 0.3s ease; }
+
+    /* --- Input Group --- */
+    .input-group {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .game-input {
+      flex: 1; min-width: 120px; padding: 10px 14px;
+      border-radius: var(--r-md); border: 1px solid var(--glass-border);
+      background: rgba(0,0,0,0.3); color: var(--text-primary);
+      font-family: var(--font); font-size: 0.95rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      outline: none; transition: all 0.2s;
+    }
+    .game-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-glow); }
+    .game-input::placeholder { color: var(--text-muted); text-transform: none; letter-spacing: 0; font-weight: 500; }
+
+    .btn {
+      padding: 10px 18px; border-radius: var(--r-md);
+      border: none; font-family: var(--font); font-weight: 700;
+      font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: scale(0.97); }
+    .btn-check { background: var(--teal); color: white; }
+    .btn-check:hover { box-shadow: 0 4px 20px var(--teal-glow); }
+    .btn-hint { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+    .btn-hint:hover { background: rgba(245,158,11,0.25); }
+    .btn-reveal { background: var(--glass); color: var(--text-secondary); border: 1px solid var(--glass-border); }
+    .btn-reveal:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+
+    .feedback {
+      display: none; padding: 8px 14px; border-radius: var(--r-md);
+      font-size: 0.85rem; font-weight: 700; margin-top: 10px;
+      animation: fadeIn 0.3s ease;
+    }
+    .feedback.correct { display: block; background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+    .feedback.wrong { display: block; background: rgba(244,63,94,0.1); color: var(--rose); border: 1px solid rgba(244,63,94,0.3); }
+
+    /* --- Keyword Card --- */
+    .keyword-card {
+      background: linear-gradient(135deg, rgba(245,158,11,0.06), rgba(251,191,36,0.04));
+      border: 2px dashed rgba(245,158,11,0.3);
+      border-radius: var(--r-xl); padding: 20px;
+      text-align: center;
+    }
+    .keyword-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(245,158,11,0.15); color: var(--gold);
+      padding: 4px 12px; border-radius: var(--r-full);
+      font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 8px;
+      border: 1px solid rgba(245,158,11,0.3);
+    }
+    .keyword-desc { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 10px; }
+    .keyword-answer {
+      font-size: 2.2rem; font-weight: 900; letter-spacing: 0.2em;
+      background: linear-gradient(135deg, var(--gold), #f97316);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; display: none;
+    }
+    .keyword-answer.visible {
+      display: block;
+      animation: keywordReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes keywordReveal {
+      0% { transform: scale(0.3) rotateY(180deg); opacity: 0; }
+      100% { transform: scale(1) rotateY(0); opacity: 1; }
+    }
+    .keyword-sub { display: none; font-size: 0.85rem; color: var(--emerald); font-weight: 600; margin-top: 6px; }
+    .keyword-sub.visible { display: block; }
+
+    .btn-group-kw {
+      display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap;
+    }
+    .btn-gold { background: var(--amber); color: #1a1a2e; }
+    .btn-gold:hover { box-shadow: 0 4px 20px var(--amber-glow); }
+    .btn-reset { background: var(--glass); color: var(--text-secondary); border: 1px solid var(--glass-border); }
+    .btn-reset:hover { color: var(--text-primary); }
+
+    /* --- Progress Bar --- */
+    .progress-section { flex-shrink: 0; }
+    .progress-label {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.75rem; font-weight: 700; color: var(--text-muted);
+      margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .progress-bar {
+      height: 6px; background: rgba(255,255,255,0.06);
+      border-radius: var(--r-full); overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; border-radius: var(--r-full);
+      background: linear-gradient(90deg, var(--teal), var(--emerald), var(--gold));
+      transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 0 10px var(--teal-glow);
+    }
+
+    /* ===================== FIREWORKS ===================== */
+    #fireworksCanvas {
+      position: fixed; inset: 0; z-index: 999; pointer-events: none;
+    }
+
+    /* ===================== CONFETTI ===================== */
+    .confetti-piece {
+      position: fixed; z-index: 998; pointer-events: none;
+      width: 10px; height: 10px; border-radius: 2px;
+    }
+
+    /* ===================== UTILITIES ===================== */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+    .shake { animation: shake 0.4s ease; }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 900px) {
+      .game-main { grid-template-columns: 1fr; }
+      .board-panel { max-height: 45vh; }
+      .game-container { padding: 12px 16px; }
+      .cw-cell { width: 26px; height: 26px; font-size: 0.7rem; }
+      .game-title h1 { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="bg-anim">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+  <div class="bg-grid"></div>
+
+  <!-- Fireworks Canvas -->
+  <canvas id="fireworksCanvas"></canvas>
+
+  <!-- Game Container -->
+  <div class="game-container">
+
+    <!-- Header -->
+    <header class="game-header">
+      <div class="game-title">
+        <span class="emoji">🧩</span>
+        <h1>Hành Trình Liêm Chính</h1>
+      </div>
+      <div class="header-controls">
+        <div class="score-badge" id="scoreBadge">⭐ <span id="scoreText">0 / 9</span></div>
+        <button class="btn-icon" id="btnSound" title="Bật/Tắt âm thanh">🔊</button>
+        <button class="btn-icon" id="btnFullscreen" title="Toàn màn hình">⛶</button>
+        <a href="index.html" class="back-link">← Quay lại</a>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="game-main">
+
+      <!-- Board -->
+      <div class="board-panel" id="cwBoard"></div>
+
+      <!-- Right Panel -->
+      <div class="right-panel">
+
+        <!-- Clue -->
+        <div class="clue-card">
+          <div class="clue-badge" id="clueBadge">Hàng ngang 1</div>
+          <p class="clue-text" id="clueText">Bấm chọn một hàng ngang bên trái để bắt đầu.</p>
+          <div class="hint-box" id="hintBox"></div>
+          <div class="input-group">
+            <input type="text" class="game-input" id="answerInput" placeholder="Nhập đáp án..." autocomplete="off">
+            <button class="btn btn-check" id="btnCheck">✓ Kiểm tra</button>
+          </div>
+          <div class="input-group" style="margin-top:8px;">
+            <button class="btn btn-hint" id="btnHint">💡 Gợi ý</button>
+            <button class="btn btn-reveal" id="btnReveal">👁 Mở đáp án</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+
+        <!-- Keyword -->
+        <div class="keyword-card">
+          <div class="keyword-badge">🏆 Mật mã hàng dọc</div>
+          <p class="keyword-desc">Đặc trưng cốt lõi của thể chế đang xây dựng (9 chữ cái)</p>
+          <div class="keyword-answer" id="keywordAnswer">PHÁP QUYỀN</div>
+          <p class="keyword-sub" id="keywordSub">🎉 Chúc mừng! Bạn đã hoàn thành Hành Trình Liêm Chính!</p>
+          <div class="btn-group-kw">
+            <button class="btn btn-gold" id="btnKeyword">🔑 Giải mật mã</button>
+            <button class="btn btn-reset" id="btnReset">🔄 Chơi lại</button>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-section">
+          <div class="progress-label">
+            <span>Tiến độ</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<script>
+// ============================================
+// SOUND ENGINE (Web Audio API)
+// ============================================
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx = null;
+let soundEnabled = true;
+let bgmOsc = null;
+let bgmGain = null;
+let bgmPlaying = false;
+
+function ensureAudioCtx() {
+  if (!audioCtx) audioCtx = new AudioCtx();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}
+
+function playTone(freq, type, duration, vol = 0.15) {
+  if (!soundEnabled) return;
+  ensureAudioCtx();
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  osc.start(); osc.stop(audioCtx.currentTime + duration);
+}
+
+function sfxCorrect() {
+  playTone(523, 'sine', 0.15, 0.2);
+  setTimeout(() => playTone(659, 'sine', 0.15, 0.2), 100);
+  setTimeout(() => playTone(784, 'sine', 0.3, 0.2), 200);
+}
+
+function sfxWrong() {
+  playTone(200, 'square', 0.15, 0.12);
+  setTimeout(() => playTone(160, 'square', 0.25, 0.12), 120);
+}
+
+function sfxHint() {
+  playTone(880, 'sine', 0.08, 0.1);
+  setTimeout(() => playTone(1100, 'sine', 0.12, 0.1), 80);
+}
+
+function sfxClick() {
+  playTone(600, 'sine', 0.06, 0.08);
+}
+
+function sfxReveal() {
+  playTone(440, 'triangle', 0.1, 0.1);
+  setTimeout(() => playTone(550, 'triangle', 0.1, 0.1), 80);
+  setTimeout(() => playTone(660, 'triangle', 0.15, 0.1), 160);
+}
+
+function sfxVictory() {
+  const notes = [523, 587, 659, 698, 784, 880, 988, 1047];
+  notes.forEach((n, i) => {
+    setTimeout(() => playTone(n, 'sine', 0.25, 0.18), i * 100);
+  });
+  setTimeout(() => {
+    playTone(1047, 'sine', 0.5, 0.25);
+    playTone(784, 'sine', 0.5, 0.2);
+    playTone(523, 'sine', 0.5, 0.15);
+  }, 850);
+}
+
+// BGM
+function startBGM() {
+  if (bgmPlaying || !soundEnabled) return;
+  ensureAudioCtx();
+  bgmGain = audioCtx.createGain();
+  bgmGain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+  bgmGain.connect(audioCtx.destination);
+
+  function playBGMNote(freq, start, dur) {
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = 'sine';
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(0.03, audioCtx.currentTime + start);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + start + dur);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(audioCtx.currentTime + start);
+    o.stop(audioCtx.currentTime + start + dur);
+  }
+
+  const melody = [
+    [392, 0, 0.5], [440, 0.5, 0.5], [494, 1, 0.5], [523, 1.5, 0.8],
+    [494, 2.3, 0.5], [440, 2.8, 0.5], [392, 3.3, 0.8],
+    [330, 4.1, 0.5], [349, 4.6, 0.5], [392, 5.1, 0.8],
+    [440, 5.9, 0.5], [392, 6.4, 0.5], [349, 6.9, 0.5], [330, 7.4, 1],
+  ];
+
+  function loopBGM() {
+    if (!bgmPlaying || !soundEnabled) return;
+    melody.forEach(([f, s, d]) => playBGMNote(f, s, d));
+    setTimeout(loopBGM, 8500);
+  }
+
+  bgmPlaying = true;
+  loopBGM();
+}
+
+function stopBGM() {
+  bgmPlaying = false;
+}
+
+// ============================================
+// CONFETTI & FIREWORKS
+// ============================================
+function launchConfetti() {
+  const colors = ['#14b8a6','#fbbf24','#f43f5e','#10b981','#a855f7','#3b82f6','#ec4899'];
+  for (let i = 0; i < 80; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.left = Math.random() * 100 + '%';
+    el.style.top = '-10px';
+    el.style.background = colors[Math.floor(Math.random() * colors.length)];
+    el.style.width = (Math.random() * 8 + 5) + 'px';
+    el.style.height = (Math.random() * 8 + 5) + 'px';
+    el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    el.style.opacity = Math.random() * 0.6 + 0.4;
+    document.body.appendChild(el);
+
+    const dur = Math.random() * 2000 + 2000;
+    const xDrift = (Math.random() - 0.5) * 300;
+    el.animate([
+      { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+      { transform: `translate(${xDrift}px, ${window.innerHeight + 50}px) rotate(${Math.random()*720}deg)`, opacity: 0 }
+    ], { duration: dur, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' })
+    .onfinish = () => el.remove();
+  }
+}
+
+// Firework particles on canvas
+const fwCanvas = document.getElementById('fireworksCanvas');
+const fwCtx = fwCanvas.getContext('2d');
+let fwParticles = [];
+let fwAnimating = false;
+
+function resizeFWCanvas() {
+  fwCanvas.width = window.innerWidth;
+  fwCanvas.height = window.innerHeight;
+}
+resizeFWCanvas();
+window.addEventListener('resize', resizeFWCanvas);
+
+function createFirework(x, y) {
+  const colors = ['#14b8a6','#fbbf24','#f43f5e','#10b981','#a855f7','#ec4899','#ffffff'];
+  for (let i = 0; i < 50; i++) {
+    const angle = (Math.PI * 2 / 50) * i;
+    const speed = Math.random() * 4 + 2;
+    fwParticles.push({
+      x, y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      life: 1,
+      decay: Math.random() * 0.015 + 0.01,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      size: Math.random() * 3 + 1
+    });
+  }
+}
+
+function animateFireworks() {
+  if (!fwAnimating && fwParticles.length === 0) return;
+  fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+  fwParticles = fwParticles.filter(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.04;
+    p.life -= p.decay;
+    if (p.life <= 0) return false;
+    fwCtx.globalAlpha = p.life;
+    fwCtx.fillStyle = p.color;
+    fwCtx.beginPath();
+    fwCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    fwCtx.fill();
+    return true;
+  });
+  fwCtx.globalAlpha = 1;
+  if (fwParticles.length > 0) requestAnimationFrame(animateFireworks);
+  else fwAnimating = false;
+}
+
+function launchFireworks() {
+  fwAnimating = true;
+  for (let i = 0; i < 6; i++) {
+    setTimeout(() => {
+      createFirework(
+        Math.random() * fwCanvas.width * 0.6 + fwCanvas.width * 0.2,
+        Math.random() * fwCanvas.height * 0.4 + fwCanvas.height * 0.1
+      );
+    }, i * 400);
+  }
+  animateFireworks();
+}
+
+// ============================================
+// CROSSWORD DATA
+// ============================================
+const CROSSWORD_DATA = [
+  { id: 1, answer: "PHANANH", keyPos: 0, offset: 5, clue: "Quyền của công dân khi gửi thông tin về các dấu hiệu vi phạm, tiêu cực đến cơ quan chức năng hoặc cổng dịch vụ công trực tuyến gọi là gì? (7 chữ cái)", hint: "Khi gặp cán bộ gây khó dễ, người dân có quyền gọi lên đường dây nóng để [...] sai phạm? (Chữ cái đầu: P)" },
+  { id: 2, answer: "HOILO", keyPos: 0, offset: 5, clue: "Hành vi đưa tiền hoặc lợi ích vật chất ngoài quy định để được giải quyết công việc nhanh chóng gọi là gì? (5 chữ cái)", hint: "Hành động lén lút đưa tiền phong bì cho cán bộ để được ưu tiên làm nhanh gọi là hành vi đưa [...]? (Chữ cái đầu: H)" },
+  { id: 3, answer: "ANTOAN", keyPos: 0, offset: 5, clue: "Yếu tố quan trọng mà Nhà nước cần bảo đảm cho người dân và người tố giác khi họ dũng cảm đứng ra vạch trần sai phạm tham nhũng? (6 chữ cái)", hint: "Khi đứng ra tố cáo tham nhũng, điều người dân lo lắng nhất và cần cơ quan pháp luật bảo vệ chính là sự [...] về tính mạng, tài sản của bản thân? (Chữ cái đầu: A)" },
+  { id: 4, answer: "PHONGCHONG", keyPos: 0, offset: 5, clue: "Cụm từ đi liền trước 'tham nhũng' để chỉ các biện pháp ngăn ngừa từ sớm và đấu tranh triệt tiêu sai phạm? (10 chữ cái)", hint: "Hoạt động ngăn chặn từ trước và bài trừ tiêu cực trong bộ máy nhà nước được gọi là công tác [...] tham nhũng? (Chữ cái đầu: P)" },
+  { id: 5, answer: "QUYENLUC", keyPos: 0, offset: 5, clue: "Tham nhũng phản ánh sự tha hóa của thứ gì khi không được giám sát và kiểm soát chặt chẽ? (8 chữ cái)", hint: "Kẻ tham nhũng đã lạm dụng và tha hóa thứ [...] nhà nước giao phó vào mục đích tư lợi? (Chữ cái đầu: Q)" },
+  { id: 6, answer: "CONGVU", keyPos: 5, offset: 0, clue: "Hoạt động thực thi chức trách, nhiệm vụ của cán bộ, công chức nhà nước nhằm phục vụ nhân dân được gọi chung là gì? (6 chữ cái)", hint: "Quá trình cán bộ làm việc, tiếp dân và giải quyết hồ sơ giấy tờ tại trụ sở nhà nước được gọi là quá trình thực thi [...]? (Chữ cái đầu: C)" },
+  { id: 7, answer: "YTHUC", keyPos: 0, offset: 5, clue: "Yếu tố tự giác bên trong của mỗi công dân về việc tuân thủ pháp luật và kiên quyết nói không với 'chi phí bôi trơn' gọi là gì? (5 chữ cái)", hint: "Tinh thần tự giác, không đi đường tắt và không thỏa hiệp với cái sai phản ánh [...] chấp hành pháp luật của mỗi công dân? (Chữ cái đầu: Y)" },
+  { id: 8, answer: "ONLINE", keyPos: 5, offset: 0, clue: "Hình thức nộp hồ sơ, giải quyết thủ tục trên môi trường mạng để hạn chế tiếp xúc trực tiếp bằng tiền mặt và giảm tiêu cực? (6 chữ cái)", hint: "Để không phải đến tận nơi gặp trực tiếp cán bộ, người dân nên nộp hồ sơ qua mạng internet theo hình thức [...]? (Chữ cái đầu: O)" },
+  { id: 9, answer: "NHUNGNHIEU", keyPos: 0, offset: 5, clue: "Hành vi cán bộ cố tình gây khó khăn, trì hoãn hoặc bắt bẻ lỗi sai không đáng có để ép người dân chi tiền được gọi là gì? (10 chữ cái)", hint: "Tình trạng cán bộ cố ý vẽ thêm lỗi, gây phiền hà để ép dân chi tiền bôi trơn được gọi là tệ nạn [...]? (Chữ cái đầu: N)" }
+];
+
+const TOTAL_COLS = 15;
+
+// ============================================
+// GAME STATE
+// ============================================
+let selectedRow = 0;
+let solved = new Array(CROSSWORD_DATA.length).fill(false);
+
+// DOM
+const cwBoard = document.getElementById('cwBoard');
+const clueBadge = document.getElementById('clueBadge');
+const clueText = document.getElementById('clueText');
+const hintBox = document.getElementById('hintBox');
+const answerInput = document.getElementById('answerInput');
+const btnCheck = document.getElementById('btnCheck');
+const btnHint = document.getElementById('btnHint');
+const btnReveal = document.getElementById('btnReveal');
+const feedback = document.getElementById('feedback');
+const btnKeyword = document.getElementById('btnKeyword');
+const btnReset = document.getElementById('btnReset');
+const keywordAnswer = document.getElementById('keywordAnswer');
+const keywordSub = document.getElementById('keywordSub');
+const scoreText = document.getElementById('scoreText');
+const progressFill = document.getElementById('progressFill');
+const progressPercent = document.getElementById('progressPercent');
+const btnSound = document.getElementById('btnSound');
+const btnFullscreen = document.getElementById('btnFullscreen');
+
+// ============================================
+// RENDER
+// ============================================
+function removeAccents(str) {
+  return str.normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+    .replace(/[^a-zA-Z]/g, '')
+    .toUpperCase();
+}
+
+function renderBoard() {
+  cwBoard.innerHTML = '';
+  CROSSWORD_DATA.forEach((item, idx) => {
+    const row = document.createElement('div');
+    row.className = 'cw-row' + (idx === selectedRow ? ' active' : '') + (solved[idx] ? ' solved' : '');
+
+    const num = document.createElement('div');
+    num.className = 'cw-num';
+    num.textContent = item.id;
+    row.appendChild(num);
+
+    const cells = document.createElement('div');
+    cells.className = 'cw-cells';
+
+    for (let i = 0; i < item.offset; i++) {
+      const c = document.createElement('div');
+      c.className = 'cw-cell empty';
+      cells.appendChild(c);
+    }
+
+    for (let i = 0; i < item.answer.length; i++) {
+      const c = document.createElement('div');
+      const isKey = (i === item.keyPos);
+      c.className = 'cw-cell' + (isKey ? ' key' : '') + (solved[idx] ? ' revealed' : '');
+      c.textContent = solved[idx] ? item.answer[i] : '';
+      cells.appendChild(c);
+    }
+
+    const used = item.offset + item.answer.length;
+    for (let i = used; i < TOTAL_COLS; i++) {
+      const c = document.createElement('div');
+      c.className = 'cw-cell empty';
+      cells.appendChild(c);
+    }
+
+    row.appendChild(cells);
+    row.addEventListener('click', () => { sfxClick(); selectRow(idx); });
+    cwBoard.appendChild(row);
+  });
+}
+
+function selectRow(idx) {
+  selectedRow = idx;
+  const item = CROSSWORD_DATA[idx];
+  clueBadge.textContent = 'Hàng ngang ' + item.id;
+  clueText.textContent = item.clue;
+  answerInput.value = '';
+  feedback.className = 'feedback';
+  hintBox.className = 'hint-box';
+  answerInput.focus();
+  renderBoard();
+}
+
+function updateProgress() {
+  const count = solved.filter(Boolean).length;
+  scoreText.textContent = count + ' / ' + CROSSWORD_DATA.length;
+  const pct = Math.round((count / CROSSWORD_DATA.length) * 100);
+  progressFill.style.width = pct + '%';
+  progressPercent.textContent = pct + '%';
+}
+
+// ============================================
+// ACTIONS
+// ============================================
+btnCheck.addEventListener('click', () => {
+  const item = CROSSWORD_DATA[selectedRow];
+  const user = removeAccents(answerInput.value.trim());
+  const correct = removeAccents(item.answer);
+
+  if (user === correct) {
+    solved[selectedRow] = true;
+    sfxCorrect();
+    feedback.textContent = '✓ Chính xác! Đáp án: ' + item.answer;
+    feedback.className = 'feedback correct';
+    hintBox.className = 'hint-box';
+    renderBoard();
+    updateProgress();
+  } else {
+    sfxWrong();
+    feedback.textContent = '✕ Chưa chính xác, hãy thử lại!';
+    feedback.className = 'feedback wrong';
+    answerInput.classList.add('shake');
+    setTimeout(() => answerInput.classList.remove('shake'), 400);
+  }
+});
+
+answerInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') btnCheck.click();
+});
+
+btnHint.addEventListener('click', () => {
+  sfxHint();
+  const item = CROSSWORD_DATA[selectedRow];
+  if (hintBox.classList.contains('show')) {
+    hintBox.className = 'hint-box';
+  } else {
+    hintBox.textContent = '💡 ' + item.hint;
+    hintBox.className = 'hint-box show';
+  }
+});
+
+btnReveal.addEventListener('click', () => {
+  sfxReveal();
+  const item = CROSSWORD_DATA[selectedRow];
+  solved[selectedRow] = true;
+  feedback.textContent = '👁 Đáp án: ' + item.answer;
+  feedback.className = 'feedback correct';
+  hintBox.className = 'hint-box';
+  renderBoard();
+  updateProgress();
+});
+
+btnKeyword.addEventListener('click', () => {
+  solved.fill(true);
+  renderBoard();
+  updateProgress();
+  sfxVictory();
+  keywordAnswer.classList.add('visible');
+  keywordSub.classList.add('visible');
+  setTimeout(launchConfetti, 300);
+  setTimeout(launchFireworks, 500);
+  setTimeout(launchConfetti, 1500);
+});
+
+btnReset.addEventListener('click', () => {
+  sfxClick();
+  solved.fill(false);
+  keywordAnswer.classList.remove('visible');
+  keywordSub.classList.remove('visible');
+  selectRow(0);
+  updateProgress();
+});
+
+// Sound toggle
+btnSound.addEventListener('click', () => {
+  soundEnabled = !soundEnabled;
+  btnSound.textContent = soundEnabled ? '🔊' : '🔇';
+  btnSound.classList.toggle('active', soundEnabled);
+  if (soundEnabled) {
+    startBGM();
+  } else {
+    stopBGM();
+  }
+});
+
+// Fullscreen
+btnFullscreen.addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen();
+  }
+});
+
+// ============================================
+// INIT
+// ============================================
+renderBoard();
+selectRow(0);
+updateProgress();
+
+// Auto-start BGM on first interaction
+document.addEventListener('click', function initAudio() {
+  ensureAudioCtx();
+  if (soundEnabled) startBGM();
+  document.removeEventListener('click', initAudio);
+}, { once: true });
+</script>
+</body>
+</html>

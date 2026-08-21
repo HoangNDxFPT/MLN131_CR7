@@ -589,6 +589,32 @@ a { color: var(--accent); text-decoration: none; }
   margin-bottom: var(--sp-4);
 }
 
+/* --- Mini label (nhãn nhỏ trong card) --- */
+.mini-label {
+  display: block;
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: var(--sp-3);
+}
+
+/* --- Concl: dòng chốt ý ở cuối card --- */
+.concl {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-5);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  line-height: 1.5;
+}
+.concl-teal    { background: var(--teal-50);    color: var(--teal-800); }
+.concl-emerald { background: var(--emerald-50); color: var(--emerald-700); }
+
 /* --- Divider --- */
 .divider {
   width: 60px; height: 3px;

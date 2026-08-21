@@ -424,6 +424,7 @@ a { color: var(--accent); text-decoration: none; }
 .mt-4 { margin-top: var(--sp-4); } .mt-6 { margin-top: var(--sp-6); }
 .mt-8 { margin-top: var(--sp-8); } .mt-10 { margin-top: var(--sp-10); }
 .mb-2 { margin-bottom: var(--sp-2); } .mb-4 { margin-bottom: var(--sp-4); }
+.mt-5 { margin-top: var(--sp-5); } .mb-5 { margin-bottom: var(--sp-5); }
 
 /* ============================================
    10. IMAGE COMPONENTS
@@ -597,7 +598,7 @@ a { color: var(--accent); text-decoration: none; }
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-muted);
-  margin-bottom: var(--sp-3);
+  margin-bottom: var(--sp-2);
 }
 
 /* --- Concl: dòng chốt ý ở cuối card --- */
@@ -605,15 +606,76 @@ a { color: var(--accent); text-decoration: none; }
   display: flex;
   align-items: center;
   gap: var(--sp-2);
-  margin-top: var(--sp-5);
+  margin-top: var(--sp-4);
   padding: var(--sp-3) var(--sp-4);
   border-radius: var(--r-md);
-  font-size: var(--fs-lg);
+  font-size: var(--fs-base);
   font-weight: 700;
   line-height: 1.5;
 }
 .concl-teal    { background: var(--teal-50);    color: var(--teal-800); }
 .concl-emerald { background: var(--emerald-50); color: var(--emerald-700); }
+
+/* --- Chain: mạch lập luận theo bước --- */
+.chain {
+  display: flex;
+  align-items: stretch;
+  gap: var(--sp-2);
+}
+
+.chain-box {
+  flex: 1;
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+}
+
+.chain-box.is-key {
+  background: var(--teal-50);
+  border-color: var(--teal-200);
+}
+
+.chain-step {
+  display: block;
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.chain-box.is-key .chain-step { color: var(--teal-600); }
+
+.chain-text {
+  font-size: var(--fs-base);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-heading);
+}
+
+.chain-arrow {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--teal-400);
+}
+
+/* --- Closing: dòng chốt cả slide --- */
+.closing {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  background: linear-gradient(90deg, var(--teal-50), var(--emerald-50));
+  border: 1px dashed var(--teal-300);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--teal-900);
+}
 
 /* --- Divider --- */
 .divider {
